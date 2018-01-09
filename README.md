@@ -14,6 +14,6 @@ Ps2: Como disse durante a conversa, nunca fiz um projeto do Zero em WebApi, apen
 
 Ps3: Fiz em C#, pois achei mais facil, devido a fazer mais de 3 anos que não mexo direto com VB.net, e o projeto que tenho, e feito em C#, e tenho usado mais C#.
 
-<img src="https://github.com/caneto/ProvaTesteMVC/blob/master/Tela0BPO.png" width="40%">
-<img src="https://github.com/caneto/ProvaTesteMVC/blob/master/Tela1BPO.png" width="40%">
-<img src="https://github.com/caneto/ProvaTesteMVC/blob/master/Tela2BPO.png" width="40%"s>
+<img src="https://github.com/caneto/ProvaTesteMVC/blob/master/Tela0BPO.png" width="60%">
+<img src="https://github.com/caneto/ProvaTesteMVC/blob/master/Tela1BPO.png" width="60%">
+<img src="https://github.com/caneto/ProvaTesteMVC/blob/master/Tela2BPO.png" width="60%">
