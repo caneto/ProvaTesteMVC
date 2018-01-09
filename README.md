@@ -25,6 +25,6 @@ campos ou corrigindo erros de logica.
 Ps3: Fiz em C#, pois achei mais facil, devido a fazer mais de 3 anos que não mecho direto com VB.net, e o projeto que tenho,
 e feito em C#, e tenho usado mais C#.
 
-<img src="https://github.com/caneto/ProvaTesteMVC/Tela0BPO.png" width="40%">
-<img src="https://github.com/caneto/ProvaTesteMVC/Tela0BP1.png" width="40%">
-<img src="https://github.com/caneto/ProvaTesteMVC/Tela0BP2.png" width="40%"s>
+<img src="https://github.com/caneto/ProvaTesteMVC/blob/master/Tela0BPO.png" width="40%">
+<img src="https://github.com/caneto/ProvaTesteMVC/blob/master/Tela0BP1.png" width="40%">
+<img src="https://github.com/caneto/ProvaTesteMVC/blob/master/Tela0BP2.png" width="40%"s>
