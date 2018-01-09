@@ -1,0 +1,52 @@
+﻿@model List<BPO.Models.Usuarios>
+@{
+    ViewBag.Title = "Diversos - Usuários - Tipo de Usuários";
+}
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
+<h2>@ViewBag.Title.</h2>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        @RenderPage("../home/PaginaCabecario.cshtml")
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Voltar", "Index", "Usuarios")</li>
+           </ul>
+        </div>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Cadastrar Novo", "CreateTipoUsuario")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Descrição
+        </th>
+    </tr>
+
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descricao)
+        </td>
+        <td>
+            @Html.ActionLink("Visualizar", "DetalhesTipoUsuario", new { id = item.id }) |
+            @Html.ActionLink("Editar", "EditTipoUsuario", new { id = item.id }) |
+            @Html.ActionLink("Excluir", "IndexNao", new { id = item.id })
+        </td>
+    </tr>
+}
+
+</table>

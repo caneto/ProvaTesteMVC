@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="945766015f9648a5a2a5c2f9a151a533" Name="Diagram1">
+        <EntityTypeShape EntityType="BPOModel.tbl_boleto" Width="1.5" PointX="5.25" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_boleto_duplicado" Width="1.5" PointX="10.5" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_boleto_recebido" Width="1.5" PointX="10.5" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_boleto_renegociacao" Width="1.5" PointX="12.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_classificacao_contrato" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_cobranca_boleto" Width="1.5" PointX="7.5" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_config_solicitacao_email" Width="1.5" PointX="13.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_contrato" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_contrato_x_fornecedor" Width="1.5" PointX="8.25" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_critica" Width="1.5" PointX="3" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_descricao_email_erro" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_descricao_tipo_despesa" Width="1.5" PointX="7.5" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_despesa_tipo" Width="1.5" PointX="10.5" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_empresa" Width="1.5" PointX="0.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_fornecedor" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_fornecedor_email" Width="1.5" PointX="8.25" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_fornecedor_endereco" Width="1.5" PointX="11.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_fornecedor_telefone" Width="1.5" PointX="11.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_ocr_boleto" Width="1.5" PointX="8.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_perfil_usuario" Width="1.5" PointX="5.25" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_periodisidade" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_regua_cobranca" Width="1.5" PointX="16" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_status" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_status_boleto" Width="1.5" PointX="7.5" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_tipo_contrato" Width="1.5" PointX="0.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_tipo_endereco" Width="1.5" PointX="9" PointY="31.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_tipo_telefone" Width="1.5" PointX="9" PointY="28.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_tipo_usuario" Width="1.5" PointX="3" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_tratamento_boleto_renegociacao" Width="1.5" PointX="15" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_tratamento_critica" Width="1.5" PointX="5.25" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPOModel.tbl_usuario" Width="1.5" PointX="5.25" PointY="20.875" IsExpanded="true" />
+        <AssociationConnector Association="BPOModel.FK_DESCRICAO_TIPO_DESPESA_DESCRICAO_TIPO_DESPESA" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_boleto_recebido_tbl_boleto" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_boleto_status_tbl_boleto" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_boleto_tbl_contrato" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_cobranco_boleto_tbl_boleto" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_periodisidade_tbl_boleto" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_boleto_duplicado_tbl_boleto_ocr" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_boleto_recebido_tbl_boleto_cobranca" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_boleto_recebido_tbl_boleto_ocr" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_boleto_renegociacao_tbl_boleto_recebido" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_boleto_renegociacao_tratamento_tbl_boleto_renegociacao" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_contrato_tbl_contrato_classificacao" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_cobranco_boleto_tbl_critica" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_cobranco_boleto_tbl_usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_regua_cobranca_tbl_config_solicitacao_email" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_contrato_tbl_contrato_tipo" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_contrato_tbl_empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_contrato_tbl_status" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_contrato_x_fornecedor_tbl_contrato" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_contrato_x_fornecedor_tbl_fornecedor" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_critica_tbl_status" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_tratamento_critica_tbl_critica" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_despesa_tipo_tbl_boleto_ocr" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_fornecedor_email_tbl_fornecedor" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_fornecedor_endereco_tbl_fornecedor" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_fornecedor_telefone_tbl_fornecedor" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_fornecedor_endereco_tbl_endereco_tipo" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_fornecedor_telefone_tbl_telefone_tipo" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_perfil_usuario_tbl_tipo_usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_boleto_status_tbl_status" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_usuario_tbl_tipo_usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_boleto_renegociacao_tratamento_tbl_usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="BPOModel.FK_tbl_tratamento_critica_tbl_usuario" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

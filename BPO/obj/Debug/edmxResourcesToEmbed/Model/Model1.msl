@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BPOModelStoreContainer" CdmEntityContainer="BPOEntities">
+    <EntitySetMapping Name="tbl_log_sistema">
+      <EntityTypeMapping TypeName="BPOModel.tbl_log_sistema">
+        <MappingFragment StoreEntitySet="tbl_log_sistema">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+          <ScalarProperty Name="acao" ColumnName="acao" />
+          <ScalarProperty Name="data_hora" ColumnName="data_hora" />
+          <ScalarProperty Name="modulo" ColumnName="modulo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_perfil_usuario">
+      <EntityTypeMapping TypeName="BPOModel.tbl_perfil_usuario">
+        <MappingFragment StoreEntitySet="tbl_perfil_usuario">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="modulo" ColumnName="modulo" />
+          <ScalarProperty Name="permissao" ColumnName="permissao" />
+          <ScalarProperty Name="idTipo_Usuario" ColumnName="idTipo_Usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_tipo_usuario">
+      <EntityTypeMapping TypeName="BPOModel.tbl_tipo_usuario">
+        <MappingFragment StoreEntitySet="tbl_tipo_usuario">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_usuario">
+      <EntityTypeMapping TypeName="BPOModel.tbl_usuario">
+        <MappingFragment StoreEntitySet="tbl_usuario">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="username_session" ColumnName="username_session" />
+          <ScalarProperty Name="idTipo_Usuario" ColumnName="idTipo_Usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

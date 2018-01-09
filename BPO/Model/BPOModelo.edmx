@@ -1,0 +1,2275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BPOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_boleto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idContrato" Type="int" Nullable="false" />
+          <Property Name="idPeriodisidade" Type="int" />
+          <Property Name="sequencia" Type="varchar" MaxLength="20" />
+          <Property Name="diaVencimento" Type="nchar" MaxLength="2" />
+          <Property Name="guia" Type="varchar" MaxLength="50" />
+          <Property Name="objeto" Type="varchar" MaxLength="50" />
+          <Property Name="valorTotalMedio" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="descritivo" Type="bit" />
+          <Property Name="nao_cobrar" Type="bit" />
+          <Property Name="observacao" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tbl_boleto_duplicado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="data" Type="datetime" />
+          <Property Name="idOcr" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_boleto_recebido">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dataOficial" Type="date" />
+          <Property Name="dataReal" Type="date" />
+          <Property Name="meio" Type="varchar" MaxLength="50" />
+          <Property Name="compensacao" Type="datetime" />
+          <Property Name="bloqueioPagamento" Type="varchar" MaxLength="50" />
+          <Property Name="meioPagamento" Type="varchar" MaxLength="50" />
+          <Property Name="montante" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="tipoMovimento" Type="varchar" MaxLength="50" />
+          <Property Name="dataLancamento" Type="date" />
+          <Property Name="centroCusto" Type="varchar" MaxLength="50" />
+          <Property Name="renegociado" Type="bit" />
+          <Property Name="critica" Type="bit" />
+          <Property Name="discritivo" Type="bit" />
+          <Property Name="idBoleto" Type="int" Nullable="false" />
+          <Property Name="idOcr" Type="int" Nullable="false" />
+          <Property Name="idCobranca" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_boleto_renegociacao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="data" Type="datetime" />
+          <Property Name="idBoletoRecebido" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_classificacao_contrato">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="50" />
+          <Property Name="vip" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbl_cobranca_boleto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dataEnvio" Type="datetime" />
+          <Property Name="cobrancaEnviada" Type="bit" />
+          <Property Name="retornoErro" Type="bit" />
+          <Property Name="cobrancaEmail" Type="bit" />
+          <Property Name="tipoCobranca" Type="varchar" MaxLength="50" />
+          <Property Name="idBoleto" Type="int" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="idCritica" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_config_solicitacao_email">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="tipo_envio" Type="varchar" MaxLength="50" />
+          <Property Name="assunto" Type="varchar" MaxLength="100" />
+          <Property Name="mensagem" Type="varchar" MaxLength="900" />
+          <Property Name="assinatura" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tbl_contrato">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="50" />
+          <Property Name="numero" Type="varchar" MaxLength="13" />
+          <Property Name="falp" Type="varchar" MaxLength="10" />
+          <Property Name="tipo_cliente" Type="varchar" MaxLength="10" />
+          <Property Name="uf" Type="nchar" MaxLength="2" />
+          <Property Name="inicio" Type="date" />
+          <Property Name="fim" Type="date" />
+          <Property Name="idStatus" Type="int" Nullable="false" />
+          <Property Name="idEmpresa" Type="int" Nullable="false" />
+          <Property Name="idClassificacao" Type="int" Nullable="false" />
+          <Property Name="idTipoContrato" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_contrato_x_fornecedor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="idForncedor" Type="int" Nullable="false" />
+          <Property Name="idContrato" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_critica">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="data" Type="datetime" />
+          <Property Name="moduo" Type="varchar" MaxLength="50" />
+          <Property Name="descricao" Type="varchar" MaxLength="50" />
+          <Property Name="idStatus" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_descricao_email_erro">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_descricao_tipo_despesa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="BOLETO_idBOLETO" Type="int" Nullable="false" />
+          <Property Name="TIPO_DESPESA" Type="varchar" MaxLength="100" />
+          <Property Name="OBSERVACAO" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tbl_despesa_tipo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="50" />
+          <Property Name="competencia" Type="varchar" MaxLength="50" />
+          <Property Name="valor" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="idOcr" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_empresa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tbl_fornecedor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedente" Type="varchar" MaxLength="100" />
+          <Property Name="cnpj" Type="varchar" MaxLength="20" />
+          <Property Name="cod_fornecedor" Type="varchar" MaxLength="20" />
+          <Property Name="descricao_fornecedor" Type="varchar" MaxLength="100" />
+          <Property Name="locador" Type="varchar" MaxLength="100" />
+          <Property Name="observacao" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tbl_fornecedor_email">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="contato" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="enviar" Type="bit" />
+          <Property Name="observacao" Type="varchar" MaxLength="200" />
+          <Property Name="idFornecedor" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_fornecedor_endereco">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="logradouro" Type="varchar" MaxLength="100" />
+          <Property Name="complemento" Type="varchar" MaxLength="50" />
+          <Property Name="bairro" Type="varchar" MaxLength="50" />
+          <Property Name="uf" Type="nchar" MaxLength="2" />
+          <Property Name="cidade" Type="varchar" MaxLength="50" />
+          <Property Name="pais" Type="varchar" MaxLength="50" />
+          <Property Name="cep" Type="nchar" MaxLength="9" />
+          <Property Name="observacao" Type="varchar" MaxLength="200" />
+          <Property Name="idFornecedor" Type="int" Nullable="false" />
+          <Property Name="idTipoEndereco" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_fornecedor_telefone">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ddi" Type="varchar" MaxLength="3" />
+          <Property Name="ddd" Type="varchar" MaxLength="3" />
+          <Property Name="telefone" Type="varchar" MaxLength="14" />
+          <Property Name="contato" Type="varchar" MaxLength="50" />
+          <Property Name="observacao" Type="varchar" MaxLength="100" />
+          <Property Name="idFornecedor" Type="int" Nullable="false" />
+          <Property Name="idTipoTelefone" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_ocr_boleto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigoBanco" Type="varchar" MaxLength="50" />
+          <Property Name="linhaDigitavel" Type="varchar" MaxLength="200" />
+          <Property Name="localPagamento" Type="varchar" MaxLength="50" />
+          <Property Name="vencimento" Type="date" />
+          <Property Name="cedente" Type="varchar" MaxLength="50" />
+          <Property Name="agenciaCodCliente" Type="varchar" MaxLength="50" />
+          <Property Name="dataDocumento" Type="varchar" MaxLength="50" />
+          <Property Name="numeroDocumento" Type="varchar" MaxLength="50" />
+          <Property Name="especieDocumento" Type="varchar" MaxLength="50" />
+          <Property Name="aceite" Type="varchar" MaxLength="50" />
+          <Property Name="nossoNumero" Type="varchar" MaxLength="50" />
+          <Property Name="usoBanco" Type="varchar" MaxLength="50" />
+          <Property Name="carteira" Type="varchar" MaxLength="50" />
+          <Property Name="especieMoeda" Type="varchar" MaxLength="50" />
+          <Property Name="quantidadeMoeda" Type="varchar" MaxLength="50" />
+          <Property Name="instrucoesBoleto" Type="varchar" MaxLength="400" />
+          <Property Name="valorCobrado" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="desconto" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="moraMultaJuros" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="sacado" Type="varchar" MaxLength="400" />
+          <Property Name="codigoBarra" Type="varchar" MaxLength="200" />
+          <Property Name="objeto" Type="varchar" MaxLength="50" />
+          <Property Name="valorTotalBoleto" Type="numeric" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="tbl_perfil_usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="modulo" Type="varchar" MaxLength="50" />
+          <Property Name="permissao" Type="varchar" MaxLength="50" />
+          <Property Name="idTipo_Usuario" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_periodisidade">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="tbl_regua_cobranca">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dia" Type="int" />
+          <Property Name="idConfig_email" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="50" />
+          <Property Name="modulo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_status_boleto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dataModificacao" Type="datetime" />
+          <Property Name="idStatus" Type="int" Nullable="false" />
+          <Property Name="idBoleto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_tipo_contrato">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codTipoContrato" Type="varchar" MaxLength="10" />
+          <Property Name="descricao" Type="varchar" MaxLength="400" />
+        </EntityType>
+        <EntityType Name="tbl_tipo_endereco">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_tipo_telefone">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_tipo_usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_tratamento_boleto_renegociacao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="data" Type="date" />
+          <Property Name="descricao" Type="varchar" MaxLength="400" />
+          <Property Name="observacao" Type="varchar" MaxLength="400" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="idRenegociacao" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_tratamento_critica">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="data" Type="datetime" />
+          <Property Name="descricao" Type="varchar" MaxLength="200" />
+          <Property Name="idCritica" Type="int" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="username" Type="varchar" MaxLength="50" />
+          <Property Name="username_session" Type="varchar" MaxLength="50" />
+          <Property Name="idTipo_Usuario" Type="int" />
+        </EntityType>
+        <Association Name="FK_DESCRICAO_TIPO_DESPESA_DESCRICAO_TIPO_DESPESA">
+          <End Role="tbl_boleto" Type="Self.tbl_boleto" Multiplicity="1" />
+          <End Role="tbl_descricao_tipo_despesa" Type="Self.tbl_descricao_tipo_despesa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_boleto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_descricao_tipo_despesa">
+              <PropertyRef Name="BOLETO_idBOLETO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_duplicado_tbl_boleto_ocr">
+          <End Role="tbl_ocr_boleto" Type="Self.tbl_ocr_boleto" Multiplicity="1" />
+          <End Role="tbl_boleto_duplicado" Type="Self.tbl_boleto_duplicado" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ocr_boleto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_boleto_duplicado">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_recebido_tbl_boleto">
+          <End Role="tbl_boleto" Type="Self.tbl_boleto" Multiplicity="1" />
+          <End Role="tbl_boleto_recebido" Type="Self.tbl_boleto_recebido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_boleto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_boleto_recebido">
+              <PropertyRef Name="idBoleto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_recebido_tbl_boleto_cobranca">
+          <End Role="tbl_cobranca_boleto" Type="Self.tbl_cobranca_boleto" Multiplicity="1" />
+          <End Role="tbl_boleto_recebido" Type="Self.tbl_boleto_recebido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_cobranca_boleto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_boleto_recebido">
+              <PropertyRef Name="idCobranca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_recebido_tbl_boleto_ocr">
+          <End Role="tbl_ocr_boleto" Type="Self.tbl_ocr_boleto" Multiplicity="1" />
+          <End Role="tbl_boleto_recebido" Type="Self.tbl_boleto_recebido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ocr_boleto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_boleto_recebido">
+              <PropertyRef Name="idOcr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_renegociacao_tbl_boleto_recebido">
+          <End Role="tbl_boleto_recebido" Type="Self.tbl_boleto_recebido" Multiplicity="1" />
+          <End Role="tbl_boleto_renegociacao" Type="Self.tbl_boleto_renegociacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_boleto_recebido">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_boleto_renegociacao">
+              <PropertyRef Name="idBoletoRecebido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_renegociacao_tratamento_tbl_boleto_renegociacao">
+          <End Role="tbl_boleto_renegociacao" Type="Self.tbl_boleto_renegociacao" Multiplicity="1" />
+          <End Role="tbl_tratamento_boleto_renegociacao" Type="Self.tbl_tratamento_boleto_renegociacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_boleto_renegociacao">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_tratamento_boleto_renegociacao">
+              <PropertyRef Name="idRenegociacao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_renegociacao_tratamento_tbl_usuario">
+          <End Role="tbl_usuario" Type="Self.tbl_usuario" Multiplicity="1" />
+          <End Role="tbl_tratamento_boleto_renegociacao" Type="Self.tbl_tratamento_boleto_renegociacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_tratamento_boleto_renegociacao">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_status_tbl_boleto">
+          <End Role="tbl_boleto" Type="Self.tbl_boleto" Multiplicity="1" />
+          <End Role="tbl_status_boleto" Type="Self.tbl_status_boleto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_boleto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_status_boleto">
+              <PropertyRef Name="idBoleto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_status_tbl_status">
+          <End Role="tbl_status" Type="Self.tbl_status" Multiplicity="1" />
+          <End Role="tbl_status_boleto" Type="Self.tbl_status_boleto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_status_boleto">
+              <PropertyRef Name="idStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_tbl_contrato">
+          <End Role="tbl_contrato" Type="Self.tbl_contrato" Multiplicity="1" />
+          <End Role="tbl_boleto" Type="Self.tbl_boleto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_contrato">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_boleto">
+              <PropertyRef Name="idContrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_cobranco_boleto_tbl_boleto">
+          <End Role="tbl_boleto" Type="Self.tbl_boleto" Multiplicity="1" />
+          <End Role="tbl_cobranca_boleto" Type="Self.tbl_cobranca_boleto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_boleto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_cobranca_boleto">
+              <PropertyRef Name="idBoleto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_cobranco_boleto_tbl_critica">
+          <End Role="tbl_critica" Type="Self.tbl_critica" Multiplicity="1" />
+          <End Role="tbl_cobranca_boleto" Type="Self.tbl_cobranca_boleto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_critica">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_cobranca_boleto">
+              <PropertyRef Name="idCritica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_cobranco_boleto_tbl_usuario">
+          <End Role="tbl_usuario" Type="Self.tbl_usuario" Multiplicity="1" />
+          <End Role="tbl_cobranca_boleto" Type="Self.tbl_cobranca_boleto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_cobranca_boleto">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_contrato_tbl_contrato_classificacao">
+          <End Role="tbl_classificacao_contrato" Type="Self.tbl_classificacao_contrato" Multiplicity="1" />
+          <End Role="tbl_contrato" Type="Self.tbl_contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_classificacao_contrato">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_contrato">
+              <PropertyRef Name="idClassificacao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_contrato_tbl_contrato_tipo">
+          <End Role="tbl_tipo_contrato" Type="Self.tbl_tipo_contrato" Multiplicity="1" />
+          <End Role="tbl_contrato" Type="Self.tbl_contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_tipo_contrato">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_contrato">
+              <PropertyRef Name="idTipoContrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_contrato_tbl_empresa">
+          <End Role="tbl_empresa" Type="Self.tbl_empresa" Multiplicity="1" />
+          <End Role="tbl_contrato" Type="Self.tbl_contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_empresa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_contrato">
+              <PropertyRef Name="idEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_contrato_tbl_status">
+          <End Role="tbl_status" Type="Self.tbl_status" Multiplicity="1" />
+          <End Role="tbl_contrato" Type="Self.tbl_contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_contrato">
+              <PropertyRef Name="idStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_contrato_x_fornecedor_tbl_contrato">
+          <End Role="tbl_contrato" Type="Self.tbl_contrato" Multiplicity="1" />
+          <End Role="tbl_contrato_x_fornecedor" Type="Self.tbl_contrato_x_fornecedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_contrato">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_contrato_x_fornecedor">
+              <PropertyRef Name="idContrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_contrato_x_fornecedor_tbl_fornecedor">
+          <End Role="tbl_fornecedor" Type="Self.tbl_fornecedor" Multiplicity="1" />
+          <End Role="tbl_contrato_x_fornecedor" Type="Self.tbl_contrato_x_fornecedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_fornecedor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_contrato_x_fornecedor">
+              <PropertyRef Name="idForncedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_critica_tbl_status">
+          <End Role="tbl_status" Type="Self.tbl_status" Multiplicity="1" />
+          <End Role="tbl_critica" Type="Self.tbl_critica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_critica">
+              <PropertyRef Name="idStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_despesa_tipo_tbl_boleto_ocr">
+          <End Role="tbl_ocr_boleto" Type="Self.tbl_ocr_boleto" Multiplicity="1" />
+          <End Role="tbl_despesa_tipo" Type="Self.tbl_despesa_tipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ocr_boleto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_despesa_tipo">
+              <PropertyRef Name="idOcr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_fornecedor_email_tbl_fornecedor">
+          <End Role="tbl_fornecedor" Type="Self.tbl_fornecedor" Multiplicity="1" />
+          <End Role="tbl_fornecedor_email" Type="Self.tbl_fornecedor_email" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_fornecedor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_fornecedor_email">
+              <PropertyRef Name="idFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_fornecedor_endereco_tbl_endereco_tipo">
+          <End Role="tbl_tipo_endereco" Type="Self.tbl_tipo_endereco" Multiplicity="1" />
+          <End Role="tbl_fornecedor_endereco" Type="Self.tbl_fornecedor_endereco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_tipo_endereco">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_fornecedor_endereco">
+              <PropertyRef Name="idTipoEndereco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_fornecedor_endereco_tbl_fornecedor">
+          <End Role="tbl_fornecedor" Type="Self.tbl_fornecedor" Multiplicity="1" />
+          <End Role="tbl_fornecedor_endereco" Type="Self.tbl_fornecedor_endereco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_fornecedor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_fornecedor_endereco">
+              <PropertyRef Name="idFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_fornecedor_telefone_tbl_fornecedor">
+          <End Role="tbl_fornecedor" Type="Self.tbl_fornecedor" Multiplicity="1" />
+          <End Role="tbl_fornecedor_telefone" Type="Self.tbl_fornecedor_telefone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_fornecedor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_fornecedor_telefone">
+              <PropertyRef Name="idFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_fornecedor_telefone_tbl_telefone_tipo">
+          <End Role="tbl_tipo_telefone" Type="Self.tbl_tipo_telefone" Multiplicity="1" />
+          <End Role="tbl_fornecedor_telefone" Type="Self.tbl_fornecedor_telefone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_tipo_telefone">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_fornecedor_telefone">
+              <PropertyRef Name="idTipoTelefone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_perfil_usuario_tbl_tipo_usuario">
+          <End Role="tbl_tipo_usuario" Type="Self.tbl_tipo_usuario" Multiplicity="0..1" />
+          <End Role="tbl_perfil_usuario" Type="Self.tbl_perfil_usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_tipo_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_perfil_usuario">
+              <PropertyRef Name="idTipo_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_periodisidade_tbl_boleto">
+          <End Role="tbl_periodisidade" Type="Self.tbl_periodisidade" Multiplicity="0..1" />
+          <End Role="tbl_boleto" Type="Self.tbl_boleto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_periodisidade">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_boleto">
+              <PropertyRef Name="idPeriodisidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_regua_cobranca_tbl_config_solicitacao_email">
+          <End Role="tbl_config_solicitacao_email" Type="Self.tbl_config_solicitacao_email" Multiplicity="0..1" />
+          <End Role="tbl_regua_cobranca" Type="Self.tbl_regua_cobranca" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_config_solicitacao_email">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_regua_cobranca">
+              <PropertyRef Name="idConfig_email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_tratamento_critica_tbl_critica">
+          <End Role="tbl_critica" Type="Self.tbl_critica" Multiplicity="1" />
+          <End Role="tbl_tratamento_critica" Type="Self.tbl_tratamento_critica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_critica">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_tratamento_critica">
+              <PropertyRef Name="idCritica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_tratamento_critica_tbl_usuario">
+          <End Role="tbl_usuario" Type="Self.tbl_usuario" Multiplicity="1" />
+          <End Role="tbl_tratamento_critica" Type="Self.tbl_tratamento_critica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_tratamento_critica">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_usuario_tbl_tipo_usuario">
+          <End Role="tbl_tipo_usuario" Type="Self.tbl_tipo_usuario" Multiplicity="0..1" />
+          <End Role="tbl_usuario" Type="Self.tbl_usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_tipo_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_usuario">
+              <PropertyRef Name="idTipo_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BPOModelStoreContainer">
+          <EntitySet Name="tbl_boleto" EntityType="Self.tbl_boleto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_boleto_duplicado" EntityType="Self.tbl_boleto_duplicado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_boleto_recebido" EntityType="Self.tbl_boleto_recebido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_boleto_renegociacao" EntityType="Self.tbl_boleto_renegociacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_classificacao_contrato" EntityType="Self.tbl_classificacao_contrato" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_cobranca_boleto" EntityType="Self.tbl_cobranca_boleto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_config_solicitacao_email" EntityType="Self.tbl_config_solicitacao_email" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_contrato" EntityType="Self.tbl_contrato" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_contrato_x_fornecedor" EntityType="Self.tbl_contrato_x_fornecedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_critica" EntityType="Self.tbl_critica" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_descricao_email_erro" EntityType="Self.tbl_descricao_email_erro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_descricao_tipo_despesa" EntityType="Self.tbl_descricao_tipo_despesa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_despesa_tipo" EntityType="Self.tbl_despesa_tipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_empresa" EntityType="Self.tbl_empresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_fornecedor" EntityType="Self.tbl_fornecedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_fornecedor_email" EntityType="Self.tbl_fornecedor_email" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_fornecedor_endereco" EntityType="Self.tbl_fornecedor_endereco" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_fornecedor_telefone" EntityType="Self.tbl_fornecedor_telefone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ocr_boleto" EntityType="Self.tbl_ocr_boleto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_perfil_usuario" EntityType="Self.tbl_perfil_usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_periodisidade" EntityType="Self.tbl_periodisidade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_regua_cobranca" EntityType="Self.tbl_regua_cobranca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_status" EntityType="Self.tbl_status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_status_boleto" EntityType="Self.tbl_status_boleto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_tipo_contrato" EntityType="Self.tbl_tipo_contrato" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_tipo_endereco" EntityType="Self.tbl_tipo_endereco" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_tipo_telefone" EntityType="Self.tbl_tipo_telefone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_tipo_usuario" EntityType="Self.tbl_tipo_usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_tratamento_boleto_renegociacao" EntityType="Self.tbl_tratamento_boleto_renegociacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_tratamento_critica" EntityType="Self.tbl_tratamento_critica" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_usuario" EntityType="Self.tbl_usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DESCRICAO_TIPO_DESPESA_DESCRICAO_TIPO_DESPESA" Association="Self.FK_DESCRICAO_TIPO_DESPESA_DESCRICAO_TIPO_DESPESA">
+            <End Role="tbl_boleto" EntitySet="tbl_boleto" />
+            <End Role="tbl_descricao_tipo_despesa" EntitySet="tbl_descricao_tipo_despesa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_duplicado_tbl_boleto_ocr" Association="Self.FK_tbl_boleto_duplicado_tbl_boleto_ocr">
+            <End Role="tbl_ocr_boleto" EntitySet="tbl_ocr_boleto" />
+            <End Role="tbl_boleto_duplicado" EntitySet="tbl_boleto_duplicado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_recebido_tbl_boleto" Association="Self.FK_tbl_boleto_recebido_tbl_boleto">
+            <End Role="tbl_boleto" EntitySet="tbl_boleto" />
+            <End Role="tbl_boleto_recebido" EntitySet="tbl_boleto_recebido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_recebido_tbl_boleto_cobranca" Association="Self.FK_tbl_boleto_recebido_tbl_boleto_cobranca">
+            <End Role="tbl_cobranca_boleto" EntitySet="tbl_cobranca_boleto" />
+            <End Role="tbl_boleto_recebido" EntitySet="tbl_boleto_recebido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_recebido_tbl_boleto_ocr" Association="Self.FK_tbl_boleto_recebido_tbl_boleto_ocr">
+            <End Role="tbl_ocr_boleto" EntitySet="tbl_ocr_boleto" />
+            <End Role="tbl_boleto_recebido" EntitySet="tbl_boleto_recebido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_renegociacao_tbl_boleto_recebido" Association="Self.FK_tbl_boleto_renegociacao_tbl_boleto_recebido">
+            <End Role="tbl_boleto_recebido" EntitySet="tbl_boleto_recebido" />
+            <End Role="tbl_boleto_renegociacao" EntitySet="tbl_boleto_renegociacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_renegociacao_tratamento_tbl_boleto_renegociacao" Association="Self.FK_tbl_boleto_renegociacao_tratamento_tbl_boleto_renegociacao">
+            <End Role="tbl_boleto_renegociacao" EntitySet="tbl_boleto_renegociacao" />
+            <End Role="tbl_tratamento_boleto_renegociacao" EntitySet="tbl_tratamento_boleto_renegociacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_renegociacao_tratamento_tbl_usuario" Association="Self.FK_tbl_boleto_renegociacao_tratamento_tbl_usuario">
+            <End Role="tbl_usuario" EntitySet="tbl_usuario" />
+            <End Role="tbl_tratamento_boleto_renegociacao" EntitySet="tbl_tratamento_boleto_renegociacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_status_tbl_boleto" Association="Self.FK_tbl_boleto_status_tbl_boleto">
+            <End Role="tbl_boleto" EntitySet="tbl_boleto" />
+            <End Role="tbl_status_boleto" EntitySet="tbl_status_boleto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_status_tbl_status" Association="Self.FK_tbl_boleto_status_tbl_status">
+            <End Role="tbl_status" EntitySet="tbl_status" />
+            <End Role="tbl_status_boleto" EntitySet="tbl_status_boleto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_tbl_contrato" Association="Self.FK_tbl_boleto_tbl_contrato">
+            <End Role="tbl_contrato" EntitySet="tbl_contrato" />
+            <End Role="tbl_boleto" EntitySet="tbl_boleto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_cobranco_boleto_tbl_boleto" Association="Self.FK_tbl_cobranco_boleto_tbl_boleto">
+            <End Role="tbl_boleto" EntitySet="tbl_boleto" />
+            <End Role="tbl_cobranca_boleto" EntitySet="tbl_cobranca_boleto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_cobranco_boleto_tbl_critica" Association="Self.FK_tbl_cobranco_boleto_tbl_critica">
+            <End Role="tbl_critica" EntitySet="tbl_critica" />
+            <End Role="tbl_cobranca_boleto" EntitySet="tbl_cobranca_boleto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_cobranco_boleto_tbl_usuario" Association="Self.FK_tbl_cobranco_boleto_tbl_usuario">
+            <End Role="tbl_usuario" EntitySet="tbl_usuario" />
+            <End Role="tbl_cobranca_boleto" EntitySet="tbl_cobranca_boleto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_contrato_tbl_contrato_classificacao" Association="Self.FK_tbl_contrato_tbl_contrato_classificacao">
+            <End Role="tbl_classificacao_contrato" EntitySet="tbl_classificacao_contrato" />
+            <End Role="tbl_contrato" EntitySet="tbl_contrato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_contrato_tbl_contrato_tipo" Association="Self.FK_tbl_contrato_tbl_contrato_tipo">
+            <End Role="tbl_tipo_contrato" EntitySet="tbl_tipo_contrato" />
+            <End Role="tbl_contrato" EntitySet="tbl_contrato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_contrato_tbl_empresa" Association="Self.FK_tbl_contrato_tbl_empresa">
+            <End Role="tbl_empresa" EntitySet="tbl_empresa" />
+            <End Role="tbl_contrato" EntitySet="tbl_contrato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_contrato_tbl_status" Association="Self.FK_tbl_contrato_tbl_status">
+            <End Role="tbl_status" EntitySet="tbl_status" />
+            <End Role="tbl_contrato" EntitySet="tbl_contrato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_contrato_x_fornecedor_tbl_contrato" Association="Self.FK_tbl_contrato_x_fornecedor_tbl_contrato">
+            <End Role="tbl_contrato" EntitySet="tbl_contrato" />
+            <End Role="tbl_contrato_x_fornecedor" EntitySet="tbl_contrato_x_fornecedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_contrato_x_fornecedor_tbl_fornecedor" Association="Self.FK_tbl_contrato_x_fornecedor_tbl_fornecedor">
+            <End Role="tbl_fornecedor" EntitySet="tbl_fornecedor" />
+            <End Role="tbl_contrato_x_fornecedor" EntitySet="tbl_contrato_x_fornecedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_critica_tbl_status" Association="Self.FK_tbl_critica_tbl_status">
+            <End Role="tbl_status" EntitySet="tbl_status" />
+            <End Role="tbl_critica" EntitySet="tbl_critica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_despesa_tipo_tbl_boleto_ocr" Association="Self.FK_tbl_despesa_tipo_tbl_boleto_ocr">
+            <End Role="tbl_ocr_boleto" EntitySet="tbl_ocr_boleto" />
+            <End Role="tbl_despesa_tipo" EntitySet="tbl_despesa_tipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_fornecedor_email_tbl_fornecedor" Association="Self.FK_tbl_fornecedor_email_tbl_fornecedor">
+            <End Role="tbl_fornecedor" EntitySet="tbl_fornecedor" />
+            <End Role="tbl_fornecedor_email" EntitySet="tbl_fornecedor_email" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_fornecedor_endereco_tbl_endereco_tipo" Association="Self.FK_tbl_fornecedor_endereco_tbl_endereco_tipo">
+            <End Role="tbl_tipo_endereco" EntitySet="tbl_tipo_endereco" />
+            <End Role="tbl_fornecedor_endereco" EntitySet="tbl_fornecedor_endereco" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_fornecedor_endereco_tbl_fornecedor" Association="Self.FK_tbl_fornecedor_endereco_tbl_fornecedor">
+            <End Role="tbl_fornecedor" EntitySet="tbl_fornecedor" />
+            <End Role="tbl_fornecedor_endereco" EntitySet="tbl_fornecedor_endereco" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_fornecedor_telefone_tbl_fornecedor" Association="Self.FK_tbl_fornecedor_telefone_tbl_fornecedor">
+            <End Role="tbl_fornecedor" EntitySet="tbl_fornecedor" />
+            <End Role="tbl_fornecedor_telefone" EntitySet="tbl_fornecedor_telefone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_fornecedor_telefone_tbl_telefone_tipo" Association="Self.FK_tbl_fornecedor_telefone_tbl_telefone_tipo">
+            <End Role="tbl_tipo_telefone" EntitySet="tbl_tipo_telefone" />
+            <End Role="tbl_fornecedor_telefone" EntitySet="tbl_fornecedor_telefone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_perfil_usuario_tbl_tipo_usuario" Association="Self.FK_tbl_perfil_usuario_tbl_tipo_usuario">
+            <End Role="tbl_tipo_usuario" EntitySet="tbl_tipo_usuario" />
+            <End Role="tbl_perfil_usuario" EntitySet="tbl_perfil_usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_periodisidade_tbl_boleto" Association="Self.FK_tbl_periodisidade_tbl_boleto">
+            <End Role="tbl_periodisidade" EntitySet="tbl_periodisidade" />
+            <End Role="tbl_boleto" EntitySet="tbl_boleto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_regua_cobranca_tbl_config_solicitacao_email" Association="Self.FK_tbl_regua_cobranca_tbl_config_solicitacao_email">
+            <End Role="tbl_config_solicitacao_email" EntitySet="tbl_config_solicitacao_email" />
+            <End Role="tbl_regua_cobranca" EntitySet="tbl_regua_cobranca" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_tratamento_critica_tbl_critica" Association="Self.FK_tbl_tratamento_critica_tbl_critica">
+            <End Role="tbl_critica" EntitySet="tbl_critica" />
+            <End Role="tbl_tratamento_critica" EntitySet="tbl_tratamento_critica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_tratamento_critica_tbl_usuario" Association="Self.FK_tbl_tratamento_critica_tbl_usuario">
+            <End Role="tbl_usuario" EntitySet="tbl_usuario" />
+            <End Role="tbl_tratamento_critica" EntitySet="tbl_tratamento_critica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_usuario_tbl_tipo_usuario" Association="Self.FK_tbl_usuario_tbl_tipo_usuario">
+            <End Role="tbl_tipo_usuario" EntitySet="tbl_tipo_usuario" />
+            <End Role="tbl_usuario" EntitySet="tbl_usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BPOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_boleto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idContrato" Type="Int32" Nullable="false" />
+          <Property Name="idPeriodisidade" Type="Int32" />
+          <Property Name="sequencia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="diaVencimento" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
+          <Property Name="guia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="objeto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="valorTotalMedio" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="descritivo" Type="Boolean" />
+          <Property Name="nao_cobrar" Type="Boolean" />
+          <Property Name="observacao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_descricao_tipo_despesa" Relationship="Self.FK_DESCRICAO_TIPO_DESPESA_DESCRICAO_TIPO_DESPESA" FromRole="tbl_boleto" ToRole="tbl_descricao_tipo_despesa" />
+          <NavigationProperty Name="tbl_boleto_recebido" Relationship="Self.FK_tbl_boleto_recebido_tbl_boleto" FromRole="tbl_boleto" ToRole="tbl_boleto_recebido" />
+          <NavigationProperty Name="tbl_status_boleto" Relationship="Self.FK_tbl_boleto_status_tbl_boleto" FromRole="tbl_boleto" ToRole="tbl_status_boleto" />
+          <NavigationProperty Name="tbl_contrato" Relationship="Self.FK_tbl_boleto_tbl_contrato" FromRole="tbl_boleto" ToRole="tbl_contrato" />
+          <NavigationProperty Name="tbl_cobranca_boleto" Relationship="Self.FK_tbl_cobranco_boleto_tbl_boleto" FromRole="tbl_boleto" ToRole="tbl_cobranca_boleto" />
+          <NavigationProperty Name="tbl_periodisidade" Relationship="Self.FK_tbl_periodisidade_tbl_boleto" FromRole="tbl_boleto" ToRole="tbl_periodisidade" />
+        </EntityType>
+        <EntityType Name="tbl_boleto_duplicado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="data" Type="DateTime" Precision="3" />
+          <Property Name="idOcr" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_ocr_boleto" Relationship="Self.FK_tbl_boleto_duplicado_tbl_boleto_ocr" FromRole="tbl_boleto_duplicado" ToRole="tbl_ocr_boleto" />
+        </EntityType>
+        <EntityType Name="tbl_boleto_recebido">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dataOficial" Type="DateTime" Precision="0" />
+          <Property Name="dataReal" Type="DateTime" Precision="0" />
+          <Property Name="meio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="compensacao" Type="DateTime" Precision="3" />
+          <Property Name="bloqueioPagamento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="meioPagamento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="montante" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="tipoMovimento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dataLancamento" Type="DateTime" Precision="0" />
+          <Property Name="centroCusto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="renegociado" Type="Boolean" />
+          <Property Name="critica" Type="Boolean" />
+          <Property Name="discritivo" Type="Boolean" />
+          <Property Name="idBoleto" Type="Int32" Nullable="false" />
+          <Property Name="idOcr" Type="Int32" Nullable="false" />
+          <Property Name="idCobranca" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_boleto" Relationship="Self.FK_tbl_boleto_recebido_tbl_boleto" FromRole="tbl_boleto_recebido" ToRole="tbl_boleto" />
+          <NavigationProperty Name="tbl_cobranca_boleto" Relationship="Self.FK_tbl_boleto_recebido_tbl_boleto_cobranca" FromRole="tbl_boleto_recebido" ToRole="tbl_cobranca_boleto" />
+          <NavigationProperty Name="tbl_ocr_boleto" Relationship="Self.FK_tbl_boleto_recebido_tbl_boleto_ocr" FromRole="tbl_boleto_recebido" ToRole="tbl_ocr_boleto" />
+          <NavigationProperty Name="tbl_boleto_renegociacao" Relationship="Self.FK_tbl_boleto_renegociacao_tbl_boleto_recebido" FromRole="tbl_boleto_recebido" ToRole="tbl_boleto_renegociacao" />
+        </EntityType>
+        <EntityType Name="tbl_boleto_renegociacao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="data" Type="DateTime" Precision="3" />
+          <Property Name="idBoletoRecebido" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_boleto_recebido" Relationship="Self.FK_tbl_boleto_renegociacao_tbl_boleto_recebido" FromRole="tbl_boleto_renegociacao" ToRole="tbl_boleto_recebido" />
+          <NavigationProperty Name="tbl_tratamento_boleto_renegociacao" Relationship="Self.FK_tbl_boleto_renegociacao_tratamento_tbl_boleto_renegociacao" FromRole="tbl_boleto_renegociacao" ToRole="tbl_tratamento_boleto_renegociacao" />
+        </EntityType>
+        <EntityType Name="tbl_classificacao_contrato">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="vip" Type="Boolean" />
+          <NavigationProperty Name="tbl_contrato" Relationship="Self.FK_tbl_contrato_tbl_contrato_classificacao" FromRole="tbl_classificacao_contrato" ToRole="tbl_contrato" />
+        </EntityType>
+        <EntityType Name="tbl_cobranca_boleto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dataEnvio" Type="DateTime" Precision="3" />
+          <Property Name="cobrancaEnviada" Type="Boolean" />
+          <Property Name="retornoErro" Type="Boolean" />
+          <Property Name="cobrancaEmail" Type="Boolean" />
+          <Property Name="tipoCobranca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idBoleto" Type="Int32" Nullable="false" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="idCritica" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_boleto" Relationship="Self.FK_tbl_cobranco_boleto_tbl_boleto" FromRole="tbl_cobranca_boleto" ToRole="tbl_boleto" />
+          <NavigationProperty Name="tbl_boleto_recebido" Relationship="Self.FK_tbl_boleto_recebido_tbl_boleto_cobranca" FromRole="tbl_cobranca_boleto" ToRole="tbl_boleto_recebido" />
+          <NavigationProperty Name="tbl_critica" Relationship="Self.FK_tbl_cobranco_boleto_tbl_critica" FromRole="tbl_cobranca_boleto" ToRole="tbl_critica" />
+          <NavigationProperty Name="tbl_usuario" Relationship="Self.FK_tbl_cobranco_boleto_tbl_usuario" FromRole="tbl_cobranca_boleto" ToRole="tbl_usuario" />
+        </EntityType>
+        <EntityType Name="tbl_config_solicitacao_email">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="tipo_envio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="assunto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="mensagem" Type="String" MaxLength="900" FixedLength="false" Unicode="false" />
+          <Property Name="assinatura" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_regua_cobranca" Relationship="Self.FK_tbl_regua_cobranca_tbl_config_solicitacao_email" FromRole="tbl_config_solicitacao_email" ToRole="tbl_regua_cobranca" />
+        </EntityType>
+        <EntityType Name="tbl_contrato">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="numero" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="falp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_cliente" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="uf" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
+          <Property Name="inicio" Type="DateTime" Precision="0" />
+          <Property Name="fim" Type="DateTime" Precision="0" />
+          <Property Name="idStatus" Type="Int32" Nullable="false" />
+          <Property Name="idEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="idClassificacao" Type="Int32" Nullable="false" />
+          <Property Name="idTipoContrato" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_boleto" Relationship="Self.FK_tbl_boleto_tbl_contrato" FromRole="tbl_contrato" ToRole="tbl_boleto" />
+          <NavigationProperty Name="tbl_classificacao_contrato" Relationship="Self.FK_tbl_contrato_tbl_contrato_classificacao" FromRole="tbl_contrato" ToRole="tbl_classificacao_contrato" />
+          <NavigationProperty Name="tbl_tipo_contrato" Relationship="Self.FK_tbl_contrato_tbl_contrato_tipo" FromRole="tbl_contrato" ToRole="tbl_tipo_contrato" />
+          <NavigationProperty Name="tbl_empresa" Relationship="Self.FK_tbl_contrato_tbl_empresa" FromRole="tbl_contrato" ToRole="tbl_empresa" />
+          <NavigationProperty Name="tbl_status" Relationship="Self.FK_tbl_contrato_tbl_status" FromRole="tbl_contrato" ToRole="tbl_status" />
+          <NavigationProperty Name="tbl_contrato_x_fornecedor" Relationship="Self.FK_tbl_contrato_x_fornecedor_tbl_contrato" FromRole="tbl_contrato" ToRole="tbl_contrato_x_fornecedor" />
+        </EntityType>
+        <EntityType Name="tbl_contrato_x_fornecedor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="idForncedor" Type="Int32" Nullable="false" />
+          <Property Name="idContrato" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_contrato" Relationship="Self.FK_tbl_contrato_x_fornecedor_tbl_contrato" FromRole="tbl_contrato_x_fornecedor" ToRole="tbl_contrato" />
+          <NavigationProperty Name="tbl_fornecedor" Relationship="Self.FK_tbl_contrato_x_fornecedor_tbl_fornecedor" FromRole="tbl_contrato_x_fornecedor" ToRole="tbl_fornecedor" />
+        </EntityType>
+        <EntityType Name="tbl_critica">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="data" Type="DateTime" Precision="3" />
+          <Property Name="moduo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idStatus" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_cobranca_boleto" Relationship="Self.FK_tbl_cobranco_boleto_tbl_critica" FromRole="tbl_critica" ToRole="tbl_cobranca_boleto" />
+          <NavigationProperty Name="tbl_status" Relationship="Self.FK_tbl_critica_tbl_status" FromRole="tbl_critica" ToRole="tbl_status" />
+          <NavigationProperty Name="tbl_tratamento_critica" Relationship="Self.FK_tbl_tratamento_critica_tbl_critica" FromRole="tbl_critica" ToRole="tbl_tratamento_critica" />
+        </EntityType>
+        <EntityType Name="tbl_descricao_email_erro">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_descricao_tipo_despesa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="BOLETO_idBOLETO" Type="Int32" Nullable="false" />
+          <Property Name="TIPO_DESPESA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OBSERVACAO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_boleto" Relationship="Self.FK_DESCRICAO_TIPO_DESPESA_DESCRICAO_TIPO_DESPESA" FromRole="tbl_descricao_tipo_despesa" ToRole="tbl_boleto" />
+        </EntityType>
+        <EntityType Name="tbl_despesa_tipo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="competencia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="valor" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="idOcr" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_ocr_boleto" Relationship="Self.FK_tbl_despesa_tipo_tbl_boleto_ocr" FromRole="tbl_despesa_tipo" ToRole="tbl_ocr_boleto" />
+        </EntityType>
+        <EntityType Name="tbl_empresa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_contrato" Relationship="Self.FK_tbl_contrato_tbl_empresa" FromRole="tbl_empresa" ToRole="tbl_contrato" />
+        </EntityType>
+        <EntityType Name="tbl_fornecedor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedente" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cnpj" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cod_fornecedor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="descricao_fornecedor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="locador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="observacao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_contrato_x_fornecedor" Relationship="Self.FK_tbl_contrato_x_fornecedor_tbl_fornecedor" FromRole="tbl_fornecedor" ToRole="tbl_contrato_x_fornecedor" />
+          <NavigationProperty Name="tbl_fornecedor_email" Relationship="Self.FK_tbl_fornecedor_email_tbl_fornecedor" FromRole="tbl_fornecedor" ToRole="tbl_fornecedor_email" />
+          <NavigationProperty Name="tbl_fornecedor_endereco" Relationship="Self.FK_tbl_fornecedor_endereco_tbl_fornecedor" FromRole="tbl_fornecedor" ToRole="tbl_fornecedor_endereco" />
+          <NavigationProperty Name="tbl_fornecedor_telefone" Relationship="Self.FK_tbl_fornecedor_telefone_tbl_fornecedor" FromRole="tbl_fornecedor" ToRole="tbl_fornecedor_telefone" />
+        </EntityType>
+        <EntityType Name="tbl_fornecedor_email">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contato" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="enviar" Type="Boolean" />
+          <Property Name="observacao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="idFornecedor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_fornecedor" Relationship="Self.FK_tbl_fornecedor_email_tbl_fornecedor" FromRole="tbl_fornecedor_email" ToRole="tbl_fornecedor" />
+        </EntityType>
+        <EntityType Name="tbl_fornecedor_endereco">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="logradouro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="complemento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="bairro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="uf" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
+          <Property Name="cidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pais" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cep" Type="String" MaxLength="9" FixedLength="true" Unicode="true" />
+          <Property Name="observacao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="idFornecedor" Type="Int32" Nullable="false" />
+          <Property Name="idTipoEndereco" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_fornecedor" Relationship="Self.FK_tbl_fornecedor_endereco_tbl_fornecedor" FromRole="tbl_fornecedor_endereco" ToRole="tbl_fornecedor" />
+          <NavigationProperty Name="tbl_tipo_endereco" Relationship="Self.FK_tbl_fornecedor_endereco_tbl_endereco_tipo" FromRole="tbl_fornecedor_endereco" ToRole="tbl_tipo_endereco" />
+        </EntityType>
+        <EntityType Name="tbl_fornecedor_telefone">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ddi" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="ddd" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="telefone" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="contato" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="observacao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="idFornecedor" Type="Int32" Nullable="false" />
+          <Property Name="idTipoTelefone" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_fornecedor" Relationship="Self.FK_tbl_fornecedor_telefone_tbl_fornecedor" FromRole="tbl_fornecedor_telefone" ToRole="tbl_fornecedor" />
+          <NavigationProperty Name="tbl_tipo_telefone" Relationship="Self.FK_tbl_fornecedor_telefone_tbl_telefone_tipo" FromRole="tbl_fornecedor_telefone" ToRole="tbl_tipo_telefone" />
+        </EntityType>
+        <EntityType Name="tbl_ocr_boleto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigoBanco" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="linhaDigitavel" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="localPagamento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="vencimento" Type="DateTime" Precision="0" />
+          <Property Name="cedente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="agenciaCodCliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dataDocumento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="numeroDocumento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="especieDocumento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="aceite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nossoNumero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="usoBanco" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="carteira" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="especieMoeda" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="quantidadeMoeda" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="instrucoesBoleto" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="valorCobrado" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="desconto" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="moraMultaJuros" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="sacado" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="codigoBarra" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="objeto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="valorTotalBoleto" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="tbl_boleto_duplicado" Relationship="Self.FK_tbl_boleto_duplicado_tbl_boleto_ocr" FromRole="tbl_ocr_boleto" ToRole="tbl_boleto_duplicado" />
+          <NavigationProperty Name="tbl_boleto_recebido" Relationship="Self.FK_tbl_boleto_recebido_tbl_boleto_ocr" FromRole="tbl_ocr_boleto" ToRole="tbl_boleto_recebido" />
+          <NavigationProperty Name="tbl_despesa_tipo" Relationship="Self.FK_tbl_despesa_tipo_tbl_boleto_ocr" FromRole="tbl_ocr_boleto" ToRole="tbl_despesa_tipo" />
+        </EntityType>
+        <EntityType Name="tbl_perfil_usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="modulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="permissao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idTipo_Usuario" Type="Int32" />
+          <NavigationProperty Name="tbl_tipo_usuario" Relationship="Self.FK_tbl_perfil_usuario_tbl_tipo_usuario" FromRole="tbl_perfil_usuario" ToRole="tbl_tipo_usuario" />
+        </EntityType>
+        <EntityType Name="tbl_periodisidade">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_boleto" Relationship="Self.FK_tbl_periodisidade_tbl_boleto" FromRole="tbl_periodisidade" ToRole="tbl_boleto" />
+        </EntityType>
+        <EntityType Name="tbl_regua_cobranca">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dia" Type="Int32" />
+          <Property Name="idConfig_email" Type="Int32" />
+          <NavigationProperty Name="tbl_config_solicitacao_email" Relationship="Self.FK_tbl_regua_cobranca_tbl_config_solicitacao_email" FromRole="tbl_regua_cobranca" ToRole="tbl_config_solicitacao_email" />
+        </EntityType>
+        <EntityType Name="tbl_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="modulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_contrato" Relationship="Self.FK_tbl_contrato_tbl_status" FromRole="tbl_status" ToRole="tbl_contrato" />
+          <NavigationProperty Name="tbl_critica" Relationship="Self.FK_tbl_critica_tbl_status" FromRole="tbl_status" ToRole="tbl_critica" />
+          <NavigationProperty Name="tbl_status_boleto" Relationship="Self.FK_tbl_boleto_status_tbl_status" FromRole="tbl_status" ToRole="tbl_status_boleto" />
+        </EntityType>
+        <EntityType Name="tbl_status_boleto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dataModificacao" Type="DateTime" Precision="3" />
+          <Property Name="idStatus" Type="Int32" Nullable="false" />
+          <Property Name="idBoleto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_boleto" Relationship="Self.FK_tbl_boleto_status_tbl_boleto" FromRole="tbl_status_boleto" ToRole="tbl_boleto" />
+          <NavigationProperty Name="tbl_status" Relationship="Self.FK_tbl_boleto_status_tbl_status" FromRole="tbl_status_boleto" ToRole="tbl_status" />
+        </EntityType>
+        <EntityType Name="tbl_tipo_contrato">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codTipoContrato" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="descricao" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_contrato" Relationship="Self.FK_tbl_contrato_tbl_contrato_tipo" FromRole="tbl_tipo_contrato" ToRole="tbl_contrato" />
+        </EntityType>
+        <EntityType Name="tbl_tipo_endereco">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_fornecedor_endereco" Relationship="Self.FK_tbl_fornecedor_endereco_tbl_endereco_tipo" FromRole="tbl_tipo_endereco" ToRole="tbl_fornecedor_endereco" />
+        </EntityType>
+        <EntityType Name="tbl_tipo_telefone">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_fornecedor_telefone" Relationship="Self.FK_tbl_fornecedor_telefone_tbl_telefone_tipo" FromRole="tbl_tipo_telefone" ToRole="tbl_fornecedor_telefone" />
+        </EntityType>
+        <EntityType Name="tbl_tipo_usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_perfil_usuario" Relationship="Self.FK_tbl_perfil_usuario_tbl_tipo_usuario" FromRole="tbl_tipo_usuario" ToRole="tbl_perfil_usuario" />
+          <NavigationProperty Name="tbl_usuario" Relationship="Self.FK_tbl_usuario_tbl_tipo_usuario" FromRole="tbl_tipo_usuario" ToRole="tbl_usuario" />
+        </EntityType>
+        <EntityType Name="tbl_tratamento_boleto_renegociacao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="data" Type="DateTime" Precision="0" />
+          <Property Name="descricao" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="observacao" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="idRenegociacao" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_boleto_renegociacao" Relationship="Self.FK_tbl_boleto_renegociacao_tratamento_tbl_boleto_renegociacao" FromRole="tbl_tratamento_boleto_renegociacao" ToRole="tbl_boleto_renegociacao" />
+          <NavigationProperty Name="tbl_usuario" Relationship="Self.FK_tbl_boleto_renegociacao_tratamento_tbl_usuario" FromRole="tbl_tratamento_boleto_renegociacao" ToRole="tbl_usuario" />
+        </EntityType>
+        <EntityType Name="tbl_tratamento_critica">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="data" Type="DateTime" Precision="3" />
+          <Property Name="descricao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="idCritica" Type="Int32" Nullable="false" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_critica" Relationship="Self.FK_tbl_tratamento_critica_tbl_critica" FromRole="tbl_tratamento_critica" ToRole="tbl_critica" />
+          <NavigationProperty Name="tbl_usuario" Relationship="Self.FK_tbl_tratamento_critica_tbl_usuario" FromRole="tbl_tratamento_critica" ToRole="tbl_usuario" />
+        </EntityType>
+        <EntityType Name="tbl_usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="username_session" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idTipo_Usuario" Type="Int32" />
+          <NavigationProperty Name="tbl_cobranca_boleto" Relationship="Self.FK_tbl_cobranco_boleto_tbl_usuario" FromRole="tbl_usuario" ToRole="tbl_cobranca_boleto" />
+          <NavigationProperty Name="tbl_tipo_usuario" Relationship="Self.FK_tbl_usuario_tbl_tipo_usuario" FromRole="tbl_usuario" ToRole="tbl_tipo_usuario" />
+          <NavigationProperty Name="tbl_tratamento_boleto_renegociacao" Relationship="Self.FK_tbl_boleto_renegociacao_tratamento_tbl_usuario" FromRole="tbl_usuario" ToRole="tbl_tratamento_boleto_renegociacao" />
+          <NavigationProperty Name="tbl_tratamento_critica" Relationship="Self.FK_tbl_tratamento_critica_tbl_usuario" FromRole="tbl_usuario" ToRole="tbl_tratamento_critica" />
+        </EntityType>
+        <Association Name="FK_DESCRICAO_TIPO_DESPESA_DESCRICAO_TIPO_DESPESA">
+          <End Role="tbl_boleto" Type="Self.tbl_boleto" Multiplicity="1" />
+          <End Role="tbl_descricao_tipo_despesa" Type="Self.tbl_descricao_tipo_despesa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_boleto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_descricao_tipo_despesa">
+              <PropertyRef Name="BOLETO_idBOLETO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_recebido_tbl_boleto">
+          <End Role="tbl_boleto" Type="Self.tbl_boleto" Multiplicity="1" />
+          <End Role="tbl_boleto_recebido" Type="Self.tbl_boleto_recebido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_boleto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_boleto_recebido">
+              <PropertyRef Name="idBoleto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_status_tbl_boleto">
+          <End Role="tbl_boleto" Type="Self.tbl_boleto" Multiplicity="1" />
+          <End Role="tbl_status_boleto" Type="Self.tbl_status_boleto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_boleto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_status_boleto">
+              <PropertyRef Name="idBoleto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_tbl_contrato">
+          <End Role="tbl_contrato" Type="Self.tbl_contrato" Multiplicity="1" />
+          <End Role="tbl_boleto" Type="Self.tbl_boleto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_contrato">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_boleto">
+              <PropertyRef Name="idContrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_cobranco_boleto_tbl_boleto">
+          <End Role="tbl_boleto" Type="Self.tbl_boleto" Multiplicity="1" />
+          <End Role="tbl_cobranca_boleto" Type="Self.tbl_cobranca_boleto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_boleto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_cobranca_boleto">
+              <PropertyRef Name="idBoleto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_periodisidade_tbl_boleto">
+          <End Role="tbl_periodisidade" Type="Self.tbl_periodisidade" Multiplicity="0..1" />
+          <End Role="tbl_boleto" Type="Self.tbl_boleto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_periodisidade">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_boleto">
+              <PropertyRef Name="idPeriodisidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_duplicado_tbl_boleto_ocr">
+          <End Role="tbl_ocr_boleto" Type="Self.tbl_ocr_boleto" Multiplicity="1" />
+          <End Role="tbl_boleto_duplicado" Type="Self.tbl_boleto_duplicado" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ocr_boleto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_boleto_duplicado">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_recebido_tbl_boleto_cobranca">
+          <End Role="tbl_cobranca_boleto" Type="Self.tbl_cobranca_boleto" Multiplicity="1" />
+          <End Role="tbl_boleto_recebido" Type="Self.tbl_boleto_recebido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_cobranca_boleto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_boleto_recebido">
+              <PropertyRef Name="idCobranca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_recebido_tbl_boleto_ocr">
+          <End Role="tbl_ocr_boleto" Type="Self.tbl_ocr_boleto" Multiplicity="1" />
+          <End Role="tbl_boleto_recebido" Type="Self.tbl_boleto_recebido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ocr_boleto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_boleto_recebido">
+              <PropertyRef Name="idOcr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_renegociacao_tbl_boleto_recebido">
+          <End Role="tbl_boleto_recebido" Type="Self.tbl_boleto_recebido" Multiplicity="1" />
+          <End Role="tbl_boleto_renegociacao" Type="Self.tbl_boleto_renegociacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_boleto_recebido">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_boleto_renegociacao">
+              <PropertyRef Name="idBoletoRecebido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_renegociacao_tratamento_tbl_boleto_renegociacao">
+          <End Role="tbl_boleto_renegociacao" Type="Self.tbl_boleto_renegociacao" Multiplicity="1" />
+          <End Role="tbl_tratamento_boleto_renegociacao" Type="Self.tbl_tratamento_boleto_renegociacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_boleto_renegociacao">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_tratamento_boleto_renegociacao">
+              <PropertyRef Name="idRenegociacao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_contrato_tbl_contrato_classificacao">
+          <End Role="tbl_classificacao_contrato" Type="Self.tbl_classificacao_contrato" Multiplicity="1" />
+          <End Role="tbl_contrato" Type="Self.tbl_contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_classificacao_contrato">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_contrato">
+              <PropertyRef Name="idClassificacao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_cobranco_boleto_tbl_critica">
+          <End Role="tbl_critica" Type="Self.tbl_critica" Multiplicity="1" />
+          <End Role="tbl_cobranca_boleto" Type="Self.tbl_cobranca_boleto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_critica">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_cobranca_boleto">
+              <PropertyRef Name="idCritica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_cobranco_boleto_tbl_usuario">
+          <End Role="tbl_usuario" Type="Self.tbl_usuario" Multiplicity="1" />
+          <End Role="tbl_cobranca_boleto" Type="Self.tbl_cobranca_boleto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_cobranca_boleto">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_regua_cobranca_tbl_config_solicitacao_email">
+          <End Role="tbl_config_solicitacao_email" Type="Self.tbl_config_solicitacao_email" Multiplicity="0..1" />
+          <End Role="tbl_regua_cobranca" Type="Self.tbl_regua_cobranca" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_config_solicitacao_email">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_regua_cobranca">
+              <PropertyRef Name="idConfig_email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_contrato_tbl_contrato_tipo">
+          <End Role="tbl_tipo_contrato" Type="Self.tbl_tipo_contrato" Multiplicity="1" />
+          <End Role="tbl_contrato" Type="Self.tbl_contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_tipo_contrato">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_contrato">
+              <PropertyRef Name="idTipoContrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_contrato_tbl_empresa">
+          <End Role="tbl_empresa" Type="Self.tbl_empresa" Multiplicity="1" />
+          <End Role="tbl_contrato" Type="Self.tbl_contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_empresa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_contrato">
+              <PropertyRef Name="idEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_contrato_tbl_status">
+          <End Role="tbl_status" Type="Self.tbl_status" Multiplicity="1" />
+          <End Role="tbl_contrato" Type="Self.tbl_contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_contrato">
+              <PropertyRef Name="idStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_contrato_x_fornecedor_tbl_contrato">
+          <End Role="tbl_contrato" Type="Self.tbl_contrato" Multiplicity="1" />
+          <End Role="tbl_contrato_x_fornecedor" Type="Self.tbl_contrato_x_fornecedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_contrato">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_contrato_x_fornecedor">
+              <PropertyRef Name="idContrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_contrato_x_fornecedor_tbl_fornecedor">
+          <End Role="tbl_fornecedor" Type="Self.tbl_fornecedor" Multiplicity="1" />
+          <End Role="tbl_contrato_x_fornecedor" Type="Self.tbl_contrato_x_fornecedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_fornecedor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_contrato_x_fornecedor">
+              <PropertyRef Name="idForncedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_critica_tbl_status">
+          <End Role="tbl_status" Type="Self.tbl_status" Multiplicity="1" />
+          <End Role="tbl_critica" Type="Self.tbl_critica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_critica">
+              <PropertyRef Name="idStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_tratamento_critica_tbl_critica">
+          <End Role="tbl_critica" Type="Self.tbl_critica" Multiplicity="1" />
+          <End Role="tbl_tratamento_critica" Type="Self.tbl_tratamento_critica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_critica">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_tratamento_critica">
+              <PropertyRef Name="idCritica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_despesa_tipo_tbl_boleto_ocr">
+          <End Role="tbl_ocr_boleto" Type="Self.tbl_ocr_boleto" Multiplicity="1" />
+          <End Role="tbl_despesa_tipo" Type="Self.tbl_despesa_tipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ocr_boleto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_despesa_tipo">
+              <PropertyRef Name="idOcr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_fornecedor_email_tbl_fornecedor">
+          <End Role="tbl_fornecedor" Type="Self.tbl_fornecedor" Multiplicity="1" />
+          <End Role="tbl_fornecedor_email" Type="Self.tbl_fornecedor_email" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_fornecedor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_fornecedor_email">
+              <PropertyRef Name="idFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_fornecedor_endereco_tbl_fornecedor">
+          <End Role="tbl_fornecedor" Type="Self.tbl_fornecedor" Multiplicity="1" />
+          <End Role="tbl_fornecedor_endereco" Type="Self.tbl_fornecedor_endereco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_fornecedor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_fornecedor_endereco">
+              <PropertyRef Name="idFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_fornecedor_telefone_tbl_fornecedor">
+          <End Role="tbl_fornecedor" Type="Self.tbl_fornecedor" Multiplicity="1" />
+          <End Role="tbl_fornecedor_telefone" Type="Self.tbl_fornecedor_telefone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_fornecedor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_fornecedor_telefone">
+              <PropertyRef Name="idFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_fornecedor_endereco_tbl_endereco_tipo">
+          <End Role="tbl_tipo_endereco" Type="Self.tbl_tipo_endereco" Multiplicity="1" />
+          <End Role="tbl_fornecedor_endereco" Type="Self.tbl_fornecedor_endereco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_tipo_endereco">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_fornecedor_endereco">
+              <PropertyRef Name="idTipoEndereco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_fornecedor_telefone_tbl_telefone_tipo">
+          <End Role="tbl_tipo_telefone" Type="Self.tbl_tipo_telefone" Multiplicity="1" />
+          <End Role="tbl_fornecedor_telefone" Type="Self.tbl_fornecedor_telefone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_tipo_telefone">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_fornecedor_telefone">
+              <PropertyRef Name="idTipoTelefone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_perfil_usuario_tbl_tipo_usuario">
+          <End Role="tbl_tipo_usuario" Type="Self.tbl_tipo_usuario" Multiplicity="0..1" />
+          <End Role="tbl_perfil_usuario" Type="Self.tbl_perfil_usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_tipo_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_perfil_usuario">
+              <PropertyRef Name="idTipo_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_status_tbl_status">
+          <End Role="tbl_status" Type="Self.tbl_status" Multiplicity="1" />
+          <End Role="tbl_status_boleto" Type="Self.tbl_status_boleto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_status_boleto">
+              <PropertyRef Name="idStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_usuario_tbl_tipo_usuario">
+          <End Role="tbl_tipo_usuario" Type="Self.tbl_tipo_usuario" Multiplicity="0..1" />
+          <End Role="tbl_usuario" Type="Self.tbl_usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_tipo_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_usuario">
+              <PropertyRef Name="idTipo_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_boleto_renegociacao_tratamento_tbl_usuario">
+          <End Role="tbl_usuario" Type="Self.tbl_usuario" Multiplicity="1" />
+          <End Role="tbl_tratamento_boleto_renegociacao" Type="Self.tbl_tratamento_boleto_renegociacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_tratamento_boleto_renegociacao">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_tratamento_critica_tbl_usuario">
+          <End Role="tbl_usuario" Type="Self.tbl_usuario" Multiplicity="1" />
+          <End Role="tbl_tratamento_critica" Type="Self.tbl_tratamento_critica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_tratamento_critica">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BPOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_boleto" EntityType="Self.tbl_boleto" />
+          <EntitySet Name="tbl_boleto_duplicado" EntityType="Self.tbl_boleto_duplicado" />
+          <EntitySet Name="tbl_boleto_recebido" EntityType="Self.tbl_boleto_recebido" />
+          <EntitySet Name="tbl_boleto_renegociacao" EntityType="Self.tbl_boleto_renegociacao" />
+          <EntitySet Name="tbl_classificacao_contrato" EntityType="Self.tbl_classificacao_contrato" />
+          <EntitySet Name="tbl_cobranca_boleto" EntityType="Self.tbl_cobranca_boleto" />
+          <EntitySet Name="tbl_config_solicitacao_email" EntityType="Self.tbl_config_solicitacao_email" />
+          <EntitySet Name="tbl_contrato" EntityType="Self.tbl_contrato" />
+          <EntitySet Name="tbl_contrato_x_fornecedor" EntityType="Self.tbl_contrato_x_fornecedor" />
+          <EntitySet Name="tbl_critica" EntityType="Self.tbl_critica" />
+          <EntitySet Name="tbl_descricao_email_erro" EntityType="Self.tbl_descricao_email_erro" />
+          <EntitySet Name="tbl_descricao_tipo_despesa" EntityType="Self.tbl_descricao_tipo_despesa" />
+          <EntitySet Name="tbl_despesa_tipo" EntityType="Self.tbl_despesa_tipo" />
+          <EntitySet Name="tbl_empresa" EntityType="Self.tbl_empresa" />
+          <EntitySet Name="tbl_fornecedor" EntityType="Self.tbl_fornecedor" />
+          <EntitySet Name="tbl_fornecedor_email" EntityType="Self.tbl_fornecedor_email" />
+          <EntitySet Name="tbl_fornecedor_endereco" EntityType="Self.tbl_fornecedor_endereco" />
+          <EntitySet Name="tbl_fornecedor_telefone" EntityType="Self.tbl_fornecedor_telefone" />
+          <EntitySet Name="tbl_ocr_boleto" EntityType="Self.tbl_ocr_boleto" />
+          <EntitySet Name="tbl_perfil_usuario" EntityType="Self.tbl_perfil_usuario" />
+          <EntitySet Name="tbl_periodisidade" EntityType="Self.tbl_periodisidade" />
+          <EntitySet Name="tbl_regua_cobranca" EntityType="Self.tbl_regua_cobranca" />
+          <EntitySet Name="tbl_status" EntityType="Self.tbl_status" />
+          <EntitySet Name="tbl_status_boleto" EntityType="Self.tbl_status_boleto" />
+          <EntitySet Name="tbl_tipo_contrato" EntityType="Self.tbl_tipo_contrato" />
+          <EntitySet Name="tbl_tipo_endereco" EntityType="Self.tbl_tipo_endereco" />
+          <EntitySet Name="tbl_tipo_telefone" EntityType="Self.tbl_tipo_telefone" />
+          <EntitySet Name="tbl_tipo_usuario" EntityType="Self.tbl_tipo_usuario" />
+          <EntitySet Name="tbl_tratamento_boleto_renegociacao" EntityType="Self.tbl_tratamento_boleto_renegociacao" />
+          <EntitySet Name="tbl_tratamento_critica" EntityType="Self.tbl_tratamento_critica" />
+          <EntitySet Name="tbl_usuario" EntityType="Self.tbl_usuario" />
+          <AssociationSet Name="FK_DESCRICAO_TIPO_DESPESA_DESCRICAO_TIPO_DESPESA" Association="Self.FK_DESCRICAO_TIPO_DESPESA_DESCRICAO_TIPO_DESPESA">
+            <End Role="tbl_boleto" EntitySet="tbl_boleto" />
+            <End Role="tbl_descricao_tipo_despesa" EntitySet="tbl_descricao_tipo_despesa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_recebido_tbl_boleto" Association="Self.FK_tbl_boleto_recebido_tbl_boleto">
+            <End Role="tbl_boleto" EntitySet="tbl_boleto" />
+            <End Role="tbl_boleto_recebido" EntitySet="tbl_boleto_recebido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_status_tbl_boleto" Association="Self.FK_tbl_boleto_status_tbl_boleto">
+            <End Role="tbl_boleto" EntitySet="tbl_boleto" />
+            <End Role="tbl_status_boleto" EntitySet="tbl_status_boleto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_tbl_contrato" Association="Self.FK_tbl_boleto_tbl_contrato">
+            <End Role="tbl_contrato" EntitySet="tbl_contrato" />
+            <End Role="tbl_boleto" EntitySet="tbl_boleto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_cobranco_boleto_tbl_boleto" Association="Self.FK_tbl_cobranco_boleto_tbl_boleto">
+            <End Role="tbl_boleto" EntitySet="tbl_boleto" />
+            <End Role="tbl_cobranca_boleto" EntitySet="tbl_cobranca_boleto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_periodisidade_tbl_boleto" Association="Self.FK_tbl_periodisidade_tbl_boleto">
+            <End Role="tbl_periodisidade" EntitySet="tbl_periodisidade" />
+            <End Role="tbl_boleto" EntitySet="tbl_boleto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_duplicado_tbl_boleto_ocr" Association="Self.FK_tbl_boleto_duplicado_tbl_boleto_ocr">
+            <End Role="tbl_ocr_boleto" EntitySet="tbl_ocr_boleto" />
+            <End Role="tbl_boleto_duplicado" EntitySet="tbl_boleto_duplicado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_recebido_tbl_boleto_cobranca" Association="Self.FK_tbl_boleto_recebido_tbl_boleto_cobranca">
+            <End Role="tbl_cobranca_boleto" EntitySet="tbl_cobranca_boleto" />
+            <End Role="tbl_boleto_recebido" EntitySet="tbl_boleto_recebido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_recebido_tbl_boleto_ocr" Association="Self.FK_tbl_boleto_recebido_tbl_boleto_ocr">
+            <End Role="tbl_ocr_boleto" EntitySet="tbl_ocr_boleto" />
+            <End Role="tbl_boleto_recebido" EntitySet="tbl_boleto_recebido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_renegociacao_tbl_boleto_recebido" Association="Self.FK_tbl_boleto_renegociacao_tbl_boleto_recebido">
+            <End Role="tbl_boleto_recebido" EntitySet="tbl_boleto_recebido" />
+            <End Role="tbl_boleto_renegociacao" EntitySet="tbl_boleto_renegociacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_renegociacao_tratamento_tbl_boleto_renegociacao" Association="Self.FK_tbl_boleto_renegociacao_tratamento_tbl_boleto_renegociacao">
+            <End Role="tbl_boleto_renegociacao" EntitySet="tbl_boleto_renegociacao" />
+            <End Role="tbl_tratamento_boleto_renegociacao" EntitySet="tbl_tratamento_boleto_renegociacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_contrato_tbl_contrato_classificacao" Association="Self.FK_tbl_contrato_tbl_contrato_classificacao">
+            <End Role="tbl_classificacao_contrato" EntitySet="tbl_classificacao_contrato" />
+            <End Role="tbl_contrato" EntitySet="tbl_contrato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_cobranco_boleto_tbl_critica" Association="Self.FK_tbl_cobranco_boleto_tbl_critica">
+            <End Role="tbl_critica" EntitySet="tbl_critica" />
+            <End Role="tbl_cobranca_boleto" EntitySet="tbl_cobranca_boleto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_cobranco_boleto_tbl_usuario" Association="Self.FK_tbl_cobranco_boleto_tbl_usuario">
+            <End Role="tbl_usuario" EntitySet="tbl_usuario" />
+            <End Role="tbl_cobranca_boleto" EntitySet="tbl_cobranca_boleto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_regua_cobranca_tbl_config_solicitacao_email" Association="Self.FK_tbl_regua_cobranca_tbl_config_solicitacao_email">
+            <End Role="tbl_config_solicitacao_email" EntitySet="tbl_config_solicitacao_email" />
+            <End Role="tbl_regua_cobranca" EntitySet="tbl_regua_cobranca" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_contrato_tbl_contrato_tipo" Association="Self.FK_tbl_contrato_tbl_contrato_tipo">
+            <End Role="tbl_tipo_contrato" EntitySet="tbl_tipo_contrato" />
+            <End Role="tbl_contrato" EntitySet="tbl_contrato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_contrato_tbl_empresa" Association="Self.FK_tbl_contrato_tbl_empresa">
+            <End Role="tbl_empresa" EntitySet="tbl_empresa" />
+            <End Role="tbl_contrato" EntitySet="tbl_contrato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_contrato_tbl_status" Association="Self.FK_tbl_contrato_tbl_status">
+            <End Role="tbl_status" EntitySet="tbl_status" />
+            <End Role="tbl_contrato" EntitySet="tbl_contrato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_contrato_x_fornecedor_tbl_contrato" Association="Self.FK_tbl_contrato_x_fornecedor_tbl_contrato">
+            <End Role="tbl_contrato" EntitySet="tbl_contrato" />
+            <End Role="tbl_contrato_x_fornecedor" EntitySet="tbl_contrato_x_fornecedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_contrato_x_fornecedor_tbl_fornecedor" Association="Self.FK_tbl_contrato_x_fornecedor_tbl_fornecedor">
+            <End Role="tbl_fornecedor" EntitySet="tbl_fornecedor" />
+            <End Role="tbl_contrato_x_fornecedor" EntitySet="tbl_contrato_x_fornecedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_critica_tbl_status" Association="Self.FK_tbl_critica_tbl_status">
+            <End Role="tbl_status" EntitySet="tbl_status" />
+            <End Role="tbl_critica" EntitySet="tbl_critica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_tratamento_critica_tbl_critica" Association="Self.FK_tbl_tratamento_critica_tbl_critica">
+            <End Role="tbl_critica" EntitySet="tbl_critica" />
+            <End Role="tbl_tratamento_critica" EntitySet="tbl_tratamento_critica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_despesa_tipo_tbl_boleto_ocr" Association="Self.FK_tbl_despesa_tipo_tbl_boleto_ocr">
+            <End Role="tbl_ocr_boleto" EntitySet="tbl_ocr_boleto" />
+            <End Role="tbl_despesa_tipo" EntitySet="tbl_despesa_tipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_fornecedor_email_tbl_fornecedor" Association="Self.FK_tbl_fornecedor_email_tbl_fornecedor">
+            <End Role="tbl_fornecedor" EntitySet="tbl_fornecedor" />
+            <End Role="tbl_fornecedor_email" EntitySet="tbl_fornecedor_email" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_fornecedor_endereco_tbl_fornecedor" Association="Self.FK_tbl_fornecedor_endereco_tbl_fornecedor">
+            <End Role="tbl_fornecedor" EntitySet="tbl_fornecedor" />
+            <End Role="tbl_fornecedor_endereco" EntitySet="tbl_fornecedor_endereco" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_fornecedor_telefone_tbl_fornecedor" Association="Self.FK_tbl_fornecedor_telefone_tbl_fornecedor">
+            <End Role="tbl_fornecedor" EntitySet="tbl_fornecedor" />
+            <End Role="tbl_fornecedor_telefone" EntitySet="tbl_fornecedor_telefone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_fornecedor_endereco_tbl_endereco_tipo" Association="Self.FK_tbl_fornecedor_endereco_tbl_endereco_tipo">
+            <End Role="tbl_tipo_endereco" EntitySet="tbl_tipo_endereco" />
+            <End Role="tbl_fornecedor_endereco" EntitySet="tbl_fornecedor_endereco" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_fornecedor_telefone_tbl_telefone_tipo" Association="Self.FK_tbl_fornecedor_telefone_tbl_telefone_tipo">
+            <End Role="tbl_tipo_telefone" EntitySet="tbl_tipo_telefone" />
+            <End Role="tbl_fornecedor_telefone" EntitySet="tbl_fornecedor_telefone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_perfil_usuario_tbl_tipo_usuario" Association="Self.FK_tbl_perfil_usuario_tbl_tipo_usuario">
+            <End Role="tbl_tipo_usuario" EntitySet="tbl_tipo_usuario" />
+            <End Role="tbl_perfil_usuario" EntitySet="tbl_perfil_usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_status_tbl_status" Association="Self.FK_tbl_boleto_status_tbl_status">
+            <End Role="tbl_status" EntitySet="tbl_status" />
+            <End Role="tbl_status_boleto" EntitySet="tbl_status_boleto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_usuario_tbl_tipo_usuario" Association="Self.FK_tbl_usuario_tbl_tipo_usuario">
+            <End Role="tbl_tipo_usuario" EntitySet="tbl_tipo_usuario" />
+            <End Role="tbl_usuario" EntitySet="tbl_usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_boleto_renegociacao_tratamento_tbl_usuario" Association="Self.FK_tbl_boleto_renegociacao_tratamento_tbl_usuario">
+            <End Role="tbl_usuario" EntitySet="tbl_usuario" />
+            <End Role="tbl_tratamento_boleto_renegociacao" EntitySet="tbl_tratamento_boleto_renegociacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_tratamento_critica_tbl_usuario" Association="Self.FK_tbl_tratamento_critica_tbl_usuario">
+            <End Role="tbl_usuario" EntitySet="tbl_usuario" />
+            <End Role="tbl_tratamento_critica" EntitySet="tbl_tratamento_critica" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BPOModelStoreContainer" CdmEntityContainer="BPOEntities">
+          <EntitySetMapping Name="tbl_boleto">
+            <EntityTypeMapping TypeName="BPOModel.tbl_boleto">
+              <MappingFragment StoreEntitySet="tbl_boleto">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idContrato" ColumnName="idContrato" />
+                <ScalarProperty Name="idPeriodisidade" ColumnName="idPeriodisidade" />
+                <ScalarProperty Name="sequencia" ColumnName="sequencia" />
+                <ScalarProperty Name="diaVencimento" ColumnName="diaVencimento" />
+                <ScalarProperty Name="guia" ColumnName="guia" />
+                <ScalarProperty Name="objeto" ColumnName="objeto" />
+                <ScalarProperty Name="valorTotalMedio" ColumnName="valorTotalMedio" />
+                <ScalarProperty Name="descritivo" ColumnName="descritivo" />
+                <ScalarProperty Name="nao_cobrar" ColumnName="nao_cobrar" />
+                <ScalarProperty Name="observacao" ColumnName="observacao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_boleto_duplicado">
+            <EntityTypeMapping TypeName="BPOModel.tbl_boleto_duplicado">
+              <MappingFragment StoreEntitySet="tbl_boleto_duplicado">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="idOcr" ColumnName="idOcr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_boleto_recebido">
+            <EntityTypeMapping TypeName="BPOModel.tbl_boleto_recebido">
+              <MappingFragment StoreEntitySet="tbl_boleto_recebido">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="dataOficial" ColumnName="dataOficial" />
+                <ScalarProperty Name="dataReal" ColumnName="dataReal" />
+                <ScalarProperty Name="meio" ColumnName="meio" />
+                <ScalarProperty Name="compensacao" ColumnName="compensacao" />
+                <ScalarProperty Name="bloqueioPagamento" ColumnName="bloqueioPagamento" />
+                <ScalarProperty Name="meioPagamento" ColumnName="meioPagamento" />
+                <ScalarProperty Name="montante" ColumnName="montante" />
+                <ScalarProperty Name="tipoMovimento" ColumnName="tipoMovimento" />
+                <ScalarProperty Name="dataLancamento" ColumnName="dataLancamento" />
+                <ScalarProperty Name="centroCusto" ColumnName="centroCusto" />
+                <ScalarProperty Name="renegociado" ColumnName="renegociado" />
+                <ScalarProperty Name="critica" ColumnName="critica" />
+                <ScalarProperty Name="discritivo" ColumnName="discritivo" />
+                <ScalarProperty Name="idBoleto" ColumnName="idBoleto" />
+                <ScalarProperty Name="idOcr" ColumnName="idOcr" />
+                <ScalarProperty Name="idCobranca" ColumnName="idCobranca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_boleto_renegociacao">
+            <EntityTypeMapping TypeName="BPOModel.tbl_boleto_renegociacao">
+              <MappingFragment StoreEntitySet="tbl_boleto_renegociacao">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="idBoletoRecebido" ColumnName="idBoletoRecebido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_classificacao_contrato">
+            <EntityTypeMapping TypeName="BPOModel.tbl_classificacao_contrato">
+              <MappingFragment StoreEntitySet="tbl_classificacao_contrato">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="vip" ColumnName="vip" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_cobranca_boleto">
+            <EntityTypeMapping TypeName="BPOModel.tbl_cobranca_boleto">
+              <MappingFragment StoreEntitySet="tbl_cobranca_boleto">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="dataEnvio" ColumnName="dataEnvio" />
+                <ScalarProperty Name="cobrancaEnviada" ColumnName="cobrancaEnviada" />
+                <ScalarProperty Name="retornoErro" ColumnName="retornoErro" />
+                <ScalarProperty Name="cobrancaEmail" ColumnName="cobrancaEmail" />
+                <ScalarProperty Name="tipoCobranca" ColumnName="tipoCobranca" />
+                <ScalarProperty Name="idBoleto" ColumnName="idBoleto" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idCritica" ColumnName="idCritica" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_config_solicitacao_email">
+            <EntityTypeMapping TypeName="BPOModel.tbl_config_solicitacao_email">
+              <MappingFragment StoreEntitySet="tbl_config_solicitacao_email">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tipo_envio" ColumnName="tipo_envio" />
+                <ScalarProperty Name="assunto" ColumnName="assunto" />
+                <ScalarProperty Name="mensagem" ColumnName="mensagem" />
+                <ScalarProperty Name="assinatura" ColumnName="assinatura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_contrato">
+            <EntityTypeMapping TypeName="BPOModel.tbl_contrato">
+              <MappingFragment StoreEntitySet="tbl_contrato">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="falp" ColumnName="falp" />
+                <ScalarProperty Name="tipo_cliente" ColumnName="tipo_cliente" />
+                <ScalarProperty Name="uf" ColumnName="uf" />
+                <ScalarProperty Name="inicio" ColumnName="inicio" />
+                <ScalarProperty Name="fim" ColumnName="fim" />
+                <ScalarProperty Name="idStatus" ColumnName="idStatus" />
+                <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
+                <ScalarProperty Name="idClassificacao" ColumnName="idClassificacao" />
+                <ScalarProperty Name="idTipoContrato" ColumnName="idTipoContrato" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_contrato_x_fornecedor">
+            <EntityTypeMapping TypeName="BPOModel.tbl_contrato_x_fornecedor">
+              <MappingFragment StoreEntitySet="tbl_contrato_x_fornecedor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idForncedor" ColumnName="idForncedor" />
+                <ScalarProperty Name="idContrato" ColumnName="idContrato" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_critica">
+            <EntityTypeMapping TypeName="BPOModel.tbl_critica">
+              <MappingFragment StoreEntitySet="tbl_critica">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="moduo" ColumnName="moduo" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="idStatus" ColumnName="idStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_descricao_email_erro">
+            <EntityTypeMapping TypeName="BPOModel.tbl_descricao_email_erro">
+              <MappingFragment StoreEntitySet="tbl_descricao_email_erro">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_descricao_tipo_despesa">
+            <EntityTypeMapping TypeName="BPOModel.tbl_descricao_tipo_despesa">
+              <MappingFragment StoreEntitySet="tbl_descricao_tipo_despesa">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="BOLETO_idBOLETO" ColumnName="BOLETO_idBOLETO" />
+                <ScalarProperty Name="TIPO_DESPESA" ColumnName="TIPO_DESPESA" />
+                <ScalarProperty Name="OBSERVACAO" ColumnName="OBSERVACAO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_despesa_tipo">
+            <EntityTypeMapping TypeName="BPOModel.tbl_despesa_tipo">
+              <MappingFragment StoreEntitySet="tbl_despesa_tipo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="competencia" ColumnName="competencia" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="idOcr" ColumnName="idOcr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_empresa">
+            <EntityTypeMapping TypeName="BPOModel.tbl_empresa">
+              <MappingFragment StoreEntitySet="tbl_empresa">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_fornecedor">
+            <EntityTypeMapping TypeName="BPOModel.tbl_fornecedor">
+              <MappingFragment StoreEntitySet="tbl_fornecedor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cedente" ColumnName="cedente" />
+                <ScalarProperty Name="cnpj" ColumnName="cnpj" />
+                <ScalarProperty Name="cod_fornecedor" ColumnName="cod_fornecedor" />
+                <ScalarProperty Name="descricao_fornecedor" ColumnName="descricao_fornecedor" />
+                <ScalarProperty Name="locador" ColumnName="locador" />
+                <ScalarProperty Name="observacao" ColumnName="observacao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_fornecedor_email">
+            <EntityTypeMapping TypeName="BPOModel.tbl_fornecedor_email">
+              <MappingFragment StoreEntitySet="tbl_fornecedor_email">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="contato" ColumnName="contato" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="enviar" ColumnName="enviar" />
+                <ScalarProperty Name="observacao" ColumnName="observacao" />
+                <ScalarProperty Name="idFornecedor" ColumnName="idFornecedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_fornecedor_endereco">
+            <EntityTypeMapping TypeName="BPOModel.tbl_fornecedor_endereco">
+              <MappingFragment StoreEntitySet="tbl_fornecedor_endereco">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="logradouro" ColumnName="logradouro" />
+                <ScalarProperty Name="complemento" ColumnName="complemento" />
+                <ScalarProperty Name="bairro" ColumnName="bairro" />
+                <ScalarProperty Name="uf" ColumnName="uf" />
+                <ScalarProperty Name="cidade" ColumnName="cidade" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="cep" ColumnName="cep" />
+                <ScalarProperty Name="observacao" ColumnName="observacao" />
+                <ScalarProperty Name="idFornecedor" ColumnName="idFornecedor" />
+                <ScalarProperty Name="idTipoEndereco" ColumnName="idTipoEndereco" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_fornecedor_telefone">
+            <EntityTypeMapping TypeName="BPOModel.tbl_fornecedor_telefone">
+              <MappingFragment StoreEntitySet="tbl_fornecedor_telefone">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ddi" ColumnName="ddi" />
+                <ScalarProperty Name="ddd" ColumnName="ddd" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="contato" ColumnName="contato" />
+                <ScalarProperty Name="observacao" ColumnName="observacao" />
+                <ScalarProperty Name="idFornecedor" ColumnName="idFornecedor" />
+                <ScalarProperty Name="idTipoTelefone" ColumnName="idTipoTelefone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ocr_boleto">
+            <EntityTypeMapping TypeName="BPOModel.tbl_ocr_boleto">
+              <MappingFragment StoreEntitySet="tbl_ocr_boleto">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codigoBanco" ColumnName="codigoBanco" />
+                <ScalarProperty Name="linhaDigitavel" ColumnName="linhaDigitavel" />
+                <ScalarProperty Name="localPagamento" ColumnName="localPagamento" />
+                <ScalarProperty Name="vencimento" ColumnName="vencimento" />
+                <ScalarProperty Name="cedente" ColumnName="cedente" />
+                <ScalarProperty Name="agenciaCodCliente" ColumnName="agenciaCodCliente" />
+                <ScalarProperty Name="dataDocumento" ColumnName="dataDocumento" />
+                <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
+                <ScalarProperty Name="especieDocumento" ColumnName="especieDocumento" />
+                <ScalarProperty Name="aceite" ColumnName="aceite" />
+                <ScalarProperty Name="nossoNumero" ColumnName="nossoNumero" />
+                <ScalarProperty Name="usoBanco" ColumnName="usoBanco" />
+                <ScalarProperty Name="carteira" ColumnName="carteira" />
+                <ScalarProperty Name="especieMoeda" ColumnName="especieMoeda" />
+                <ScalarProperty Name="quantidadeMoeda" ColumnName="quantidadeMoeda" />
+                <ScalarProperty Name="instrucoesBoleto" ColumnName="instrucoesBoleto" />
+                <ScalarProperty Name="valorCobrado" ColumnName="valorCobrado" />
+                <ScalarProperty Name="desconto" ColumnName="desconto" />
+                <ScalarProperty Name="moraMultaJuros" ColumnName="moraMultaJuros" />
+                <ScalarProperty Name="sacado" ColumnName="sacado" />
+                <ScalarProperty Name="codigoBarra" ColumnName="codigoBarra" />
+                <ScalarProperty Name="objeto" ColumnName="objeto" />
+                <ScalarProperty Name="valorTotalBoleto" ColumnName="valorTotalBoleto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_perfil_usuario">
+            <EntityTypeMapping TypeName="BPOModel.tbl_perfil_usuario">
+              <MappingFragment StoreEntitySet="tbl_perfil_usuario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="modulo" ColumnName="modulo" />
+                <ScalarProperty Name="permissao" ColumnName="permissao" />
+                <ScalarProperty Name="idTipo_Usuario" ColumnName="idTipo_Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_periodisidade">
+            <EntityTypeMapping TypeName="BPOModel.tbl_periodisidade">
+              <MappingFragment StoreEntitySet="tbl_periodisidade">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_regua_cobranca">
+            <EntityTypeMapping TypeName="BPOModel.tbl_regua_cobranca">
+              <MappingFragment StoreEntitySet="tbl_regua_cobranca">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="dia" ColumnName="dia" />
+                <ScalarProperty Name="idConfig_email" ColumnName="idConfig_email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_status">
+            <EntityTypeMapping TypeName="BPOModel.tbl_status">
+              <MappingFragment StoreEntitySet="tbl_status">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="modulo" ColumnName="modulo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_status_boleto">
+            <EntityTypeMapping TypeName="BPOModel.tbl_status_boleto">
+              <MappingFragment StoreEntitySet="tbl_status_boleto">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="dataModificacao" ColumnName="dataModificacao" />
+                <ScalarProperty Name="idStatus" ColumnName="idStatus" />
+                <ScalarProperty Name="idBoleto" ColumnName="idBoleto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_tipo_contrato">
+            <EntityTypeMapping TypeName="BPOModel.tbl_tipo_contrato">
+              <MappingFragment StoreEntitySet="tbl_tipo_contrato">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codTipoContrato" ColumnName="codTipoContrato" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_tipo_endereco">
+            <EntityTypeMapping TypeName="BPOModel.tbl_tipo_endereco">
+              <MappingFragment StoreEntitySet="tbl_tipo_endereco">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_tipo_telefone">
+            <EntityTypeMapping TypeName="BPOModel.tbl_tipo_telefone">
+              <MappingFragment StoreEntitySet="tbl_tipo_telefone">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_tipo_usuario">
+            <EntityTypeMapping TypeName="BPOModel.tbl_tipo_usuario">
+              <MappingFragment StoreEntitySet="tbl_tipo_usuario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_tratamento_boleto_renegociacao">
+            <EntityTypeMapping TypeName="BPOModel.tbl_tratamento_boleto_renegociacao">
+              <MappingFragment StoreEntitySet="tbl_tratamento_boleto_renegociacao">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="observacao" ColumnName="observacao" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idRenegociacao" ColumnName="idRenegociacao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_tratamento_critica">
+            <EntityTypeMapping TypeName="BPOModel.tbl_tratamento_critica">
+              <MappingFragment StoreEntitySet="tbl_tratamento_critica">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="idCritica" ColumnName="idCritica" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_usuario">
+            <EntityTypeMapping TypeName="BPOModel.tbl_usuario">
+              <MappingFragment StoreEntitySet="tbl_usuario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="username_session" ColumnName="username_session" />
+                <ScalarProperty Name="idTipo_Usuario" ColumnName="idTipo_Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

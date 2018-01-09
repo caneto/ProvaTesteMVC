@@ -1,0 +1,131 @@
+﻿@model PagedList.IPagedList<BPO.Models.ContratoOpcoes>
+@{
+    ViewBag.Title = "Contrato";
+}
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+<h2>@ViewBag.Title.</h2>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            @RenderPage("../home/PaginaCabecario.cshtml")
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Voltar", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Contrato", "Index", "Contrato")</li>
+                    <li>@Html.ActionLink("Tipo de Contrato", "IndexTipoContrato", "Contrato")</li>
+                    <li>@Html.ActionLink("Classificação de Contrato", "IndexClassificacaoContrato", "Contrato")</li>
+                </ul>
+            </div>
+        </div>
+</div>
+
+<style>
+    .ui-menu {
+        width: 180px;
+    }
+</style>
+ 
+<table class="table">
+    <tr>
+        <th>
+            Numero
+        </th>
+        <th>
+            Descrição
+        </th>
+        <th>
+            Data Inicio
+        </th>
+        <th>
+            Data Fim
+        </th>
+        <th>
+            Empresa
+        </th>
+        <th>
+            Tipo Contrato
+        </th>
+        <th>
+            Menu
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.numero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.inicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fim)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.empresa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipocontrato)
+            </td>
+            <td>
+                <script type="text/javascript">
+                    $(function () {
+                        $("#menu@(item.id)").menu();
+                    });
+                </script>
+
+                <ul id="menu@(item.id)">
+                    <li>
+                        Opções
+                        <ul>
+                            <li>@Html.ActionLink("Visualizar", "DetalhesContrato", "Contrato", new { id = item.id })</li>
+                            <li type='separator'></li>
+                            <li>@Html.ActionLink("Lista Boletos", "IndexNao", "Contrato", new { id = item.id })</li>
+                            <li>@Html.ActionLink("Lista Boletos Recebidos", "IndexNao", "Contrato", new { id = item.id })</li>
+                        </ul>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div>
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+    @if (Model.HasPreviousPage)
+    {
+        @Html.ActionLink("<<", "MenuContrato", new { pagina = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+        @Html.Raw(" ");
+        @Html.ActionLink("< Anterior", "MenuContrato", new { pagina = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+    }
+    else
+    {
+        @:<<
+        @Html.Raw(" ");
+        @:< Anterior
+	        }
+
+    @if (Model.HasNextPage)
+    {
+        @Html.ActionLink("Próxima >", "MenuContrato", new { pagina = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+        @Html.Raw(" ");
+        @Html.ActionLink(">>", "MenuContrato", new { pagina = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+    }
+    else
+    {
+        @:Próxima >
+        @Html.Raw(" ")
+        @:>>
+  	        }
+
+</div>

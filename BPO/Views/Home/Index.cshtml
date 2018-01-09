@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "Pagina Principal";
+}
+@if (ViewBag.acesso == true)
+{
+    <div class="jumbotron">
+        <h1>BPO</h1>
+    </div>
+}
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+<script type="text/javascript">
+
+    $(function () {
+        $("#pesquisa1").datepicker({
+                dateFormat: 'dd/mm/yy',
+                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
+                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+            });
+        });
+    $(function () {
+        $("#pesquisa2").datepicker({
+            dateFormat: 'dd/mm/yy',
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+        });
+    });
+
+    $(function () {
+        $("#filtrar").click(function (e) {
+            var pesquisa1 = $("#pesquisa1").val();
+            var pesquisa2 = $("#pesquisa2").val();
+            
+            e.preventDefault();
+
+            if (pesquisa1 != "" && pesquisa2 != "") {
+                $("#formPeriodo").submit()
+            } else {
+                alert('"Para Pesquisar selecione o Intervalo!"', 'Informações');
+            }
+             
+
+        });
+    });
+
+	$(function() {
+	    $("#d0").tooltip();
+	    $("#d1").tooltip();
+	    $("#d2").tooltip();
+	    $("#d3").tooltip();
+	    $("#d4").tooltip();
+	    $("#preto").tooltip();
+	    $("#roxo").tooltip();
+	    $("#azulclaro").tooltip();
+	    $("#azulescuro").tooltip();
+	});
+</script>
+
+<div class="row">
+
+    <div class="col-sm-9">
+
+        <!-- column 2 -->
+        @if (ViewBag.acesso == true)
+        {
+            <h3><i class="glyphicon glyphicon-dashboard"></i> Painel - 
+            @if (ViewBag.nome != "")
+            {
+                @ViewBag.nome
+            }
+            -
+            @if (ViewBag.descricao != "")
+            {
+                @ViewBag.descricao
+            }</h3>
+            <hr>
+        }
+        else
+        {
+            <h3>Projeto BPO</h3>
+        }
+        
+        
+
+    @if (ViewBag.acesso == true)
+    {
+
+        <div class="row">
+            <div class="col-md-12">
+                @using (Html.BeginForm("Pesquisa", "Home", FormMethod.Post, new { id = "formPeriodo" }))
+                {
+                    @Html.AntiForgeryToken()
+                   <div class="well">Mes de Referencia : @ViewBag.mesreferencia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Periodo de @Html.Editor("pesquisa1", new { htmlAttributes = new { style = "Width:88px", id="pesquisa1", @valor = ViewBag.pesquisa1 } }) a @Html.Editor("pesquisa2", new { htmlAttributes = new { style = "Width:88px", id="pesquisa2", @valor = ViewBag.pesquisa2 } }) &nbsp;&nbsp;&nbsp;<input type="button" id="filtrar" value="Filtrar" class="btn btn-default" /></div>
+                }
+
+
+                
+
+                </div><!--/col-->
+            
+            </div><!--/row-->
+        }
+    </div><!--/col-span-9-->
+    
+</div><!--/row-->
+<!-- /upper section -->
+    

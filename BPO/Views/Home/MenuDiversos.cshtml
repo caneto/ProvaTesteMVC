@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Diversos";
+}
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
+<h2>@ViewBag.Title.</h2>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        @RenderPage("../home/PaginaCabecario.cshtml")
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Voltar", "Index", "Home")</li>
+                <li>@Html.ActionLink("Usuários", "Index", "Usuarios")</li>
+            </ul>
+        </div>
+    </div>
+</div>

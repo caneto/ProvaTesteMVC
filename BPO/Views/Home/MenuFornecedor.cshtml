@@ -1,0 +1,64 @@
+﻿@model List<BPO.Models.ForncedorOpcoes>
+@{
+    ViewBag.Title = "Fornecedores";
+}
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+<h2>@ViewBag.Title.</h2>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            @RenderPage("../home/PaginaCabecario.cshtml")
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Voltar", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Fornecedor", "Index", "Fornecedor")</li>
+                    <li>@Html.ActionLink("Fornecedor Email", "IndexEmail", "Fornecedor")</li>
+                    <li>@Html.ActionLink("Fornecedor Telefone", "IndexTelefone", "Fornecedor")</li>
+                    <li>@Html.ActionLink("Fornecedor Endereço", "IndexEndereco", "Fornecedor")</li>
+                </ul>
+            </div>
+        </div>
+</div>
+
+<style>
+    .ui-menu {
+        width: 180px;
+    }
+    .grid {
+      width: 100%;
+    }
+</style>
+ 
+<div style="width:100%;">
+    @{
+        WebGrid grid = new WebGrid(Model, canPage: true, rowsPerPage: 14);
+        @grid.GetHtml(
+         tableStyle: "grid",
+         fillEmptyRows: false,
+         headerStyle: "gvHeading",
+         alternatingRowStyle: "gvAlternateRow",
+         rowStyle: "gvRow",
+         footerStyle: "gvFooter",
+
+         mode: WebGridPagerModes.All,
+         firstText: "<< Primeiro",
+         previousText: "< Anterior",
+         nextText: "Próximo >",
+         lastText: "Último >>",
+         columns: new[] {
+         grid.Column("cod_fornecedor",header: "Código Fornecedor"),
+         grid.Column("descricao_fornecedor", header: "Nome"),
+         grid.Column("email", header: "Email"),
+         grid.Column("telefone", header: "Telefone"),
+    
+     })
+    }
+
+</div>
+<div class="pull-right">
+    <a id="printer" href="@Url.Action("PrinterFornecedor")"><img src="@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Content("~/Content/img/stampante.png")" alt="Printar" height="30" title="Imprimir" /></a>
+</div>

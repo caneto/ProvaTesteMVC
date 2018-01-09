@@ -1,0 +1,10 @@
+﻿<ul class="nav navbar-nav">
+    <!--<li>@Html.ActionLink(" Inicio", "Index", "Home", null, new { @class = "fa fa-home" })</li>-->
+    
+    
+    @if (ViewBag.acesso == true)
+    {
+        <li>@Html.ActionLink(" Diversos", "MenuDiversos", "Home", null, new { @class = "fa fa-bars" })</li>
+        <li>@Html.ActionLink(" Logout ", "Logout", "Login", null, new { @class = "fa fa-bars" })</li>
+    }
+</ul>

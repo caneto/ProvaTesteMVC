@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BPOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tbl_log_sistema">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idUsuario" Type="Int32" />
+    <Property Name="acao" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="data_hora" Type="DateTime" Precision="3" />
+    <Property Name="modulo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_usuario" Relationship="Self.FK_tbl_usuario_tbl_log_sistema" FromRole="tbl_log_sistema" ToRole="tbl_usuario" />
+  </EntityType>
+  <EntityType Name="tbl_perfil_usuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="modulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="permissao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="idTipo_Usuario" Type="Int32" />
+    <NavigationProperty Name="tbl_tipo_usuario" Relationship="Self.FK_tbl_perfil_usuario_tbl_tipo_usuario" FromRole="tbl_perfil_usuario" ToRole="tbl_tipo_usuario" />
+  </EntityType>
+  <EntityType Name="tbl_tipo_usuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_perfil_usuario" Relationship="Self.FK_tbl_perfil_usuario_tbl_tipo_usuario" FromRole="tbl_tipo_usuario" ToRole="tbl_perfil_usuario" />
+    <NavigationProperty Name="tbl_usuario" Relationship="Self.FK_tbl_usuario_tbl_tipo_usuario" FromRole="tbl_tipo_usuario" ToRole="tbl_usuario" />
+  </EntityType>
+  <EntityType Name="tbl_usuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="username_session" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="idTipo_Usuario" Type="Int32" />
+    <NavigationProperty Name="tbl_log_sistema" Relationship="Self.FK_tbl_usuario_tbl_log_sistema" FromRole="tbl_usuario" ToRole="tbl_log_sistema" />
+    <NavigationProperty Name="tbl_tipo_usuario" Relationship="Self.FK_tbl_usuario_tbl_tipo_usuario" FromRole="tbl_usuario" ToRole="tbl_tipo_usuario" />
+  </EntityType>
+  <Association Name="FK_tbl_usuario_tbl_log_sistema">
+    <End Role="tbl_usuario" Type="Self.tbl_usuario" Multiplicity="0..1" />
+    <End Role="tbl_log_sistema" Type="Self.tbl_log_sistema" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_usuario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tbl_log_sistema">
+        <PropertyRef Name="idUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_perfil_usuario_tbl_tipo_usuario">
+    <End Role="tbl_tipo_usuario" Type="Self.tbl_tipo_usuario" Multiplicity="0..1" />
+    <End Role="tbl_perfil_usuario" Type="Self.tbl_perfil_usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_tipo_usuario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tbl_perfil_usuario">
+        <PropertyRef Name="idTipo_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_usuario_tbl_tipo_usuario">
+    <End Role="tbl_tipo_usuario" Type="Self.tbl_tipo_usuario" Multiplicity="0..1" />
+    <End Role="tbl_usuario" Type="Self.tbl_usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_tipo_usuario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tbl_usuario">
+        <PropertyRef Name="idTipo_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BPOEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tbl_log_sistema" EntityType="Self.tbl_log_sistema" />
+    <EntitySet Name="tbl_perfil_usuario" EntityType="Self.tbl_perfil_usuario" />
+    <EntitySet Name="tbl_tipo_usuario" EntityType="Self.tbl_tipo_usuario" />
+    <EntitySet Name="tbl_usuario" EntityType="Self.tbl_usuario" />
+    <AssociationSet Name="FK_tbl_usuario_tbl_log_sistema" Association="Self.FK_tbl_usuario_tbl_log_sistema">
+      <End Role="tbl_usuario" EntitySet="tbl_usuario" />
+      <End Role="tbl_log_sistema" EntitySet="tbl_log_sistema" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_perfil_usuario_tbl_tipo_usuario" Association="Self.FK_tbl_perfil_usuario_tbl_tipo_usuario">
+      <End Role="tbl_tipo_usuario" EntitySet="tbl_tipo_usuario" />
+      <End Role="tbl_perfil_usuario" EntitySet="tbl_perfil_usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_usuario_tbl_tipo_usuario" Association="Self.FK_tbl_usuario_tbl_tipo_usuario">
+      <End Role="tbl_tipo_usuario" EntitySet="tbl_tipo_usuario" />
+      <End Role="tbl_usuario" EntitySet="tbl_usuario" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

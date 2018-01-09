@@ -1,0 +1,48 @@
+﻿@model List<BPO.Models.Usuarios>
+@{
+    ViewBag.Title = "Detalhes Usuário";
+}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+       @RenderPage("../home/PaginaCabecario.cshtml")
+    </div>
+</div>
+<h2>Detalhes Usuário</h2>
+@foreach (var item in Model)
+{
+
+<div>
+    <h4>Usuário</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => item.nome)
+        </dt>
+
+        <dd class="clearfix">
+            @Html.DisplayFor(model => item.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => item.username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => item.username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => item.email)
+        </dt>
+
+        <dd class="clearfix">
+            @Html.DisplayFor(model => item.email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edita", "Edit", new { id = item.id }) |
+    @Html.ActionLink("Retorna para a Lista", "IndexUsuario", "Usuarios")
+</p>
+}
