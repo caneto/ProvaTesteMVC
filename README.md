@@ -22,7 +22,7 @@ ver e tentar fazer algo.
 Ps2: Como disse durante a conversa, nunca fiz um projeto do Zero em WebApi, apenas ja dei manutenção algumas vezes adicionando,
 campos ou corrigindo erros de logica.
 
-Ps3: Fiz em C#, pois achei mais facil, devido a fazer mais de 3 anos que não mecho direto com VB.net, e o projeto que tenho,
+Ps3: Fiz em C#, pois achei mais facil, devido a fazer mais de 3 anos que não mexo direto com VB.net, e o projeto que tenho,
 e feito em C#, e tenho usado mais C#.
 
 <img src="https://github.com/caneto/ProvaTesteMVC/blob/master/Tela0BPO.png" width="40%">
